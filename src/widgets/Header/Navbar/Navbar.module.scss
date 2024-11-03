@@ -1,0 +1,7 @@
+.Navbar {
+  display: flex;
+
+  &__link:not(:last-child) {
+    margin-right: 50px;
+  }
+}

@@ -1,0 +1,11 @@
+.BackButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  &__icon {
+    margin-right: 10px;
+  }
+}

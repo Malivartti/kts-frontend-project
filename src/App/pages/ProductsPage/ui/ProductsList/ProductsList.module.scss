@@ -1,0 +1,22 @@
+.ProductsList {
+  display: flex;
+  flex-direction: column;
+
+  &__count {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  &__title {
+    margin-right: 25px;
+    font-size: 32px;
+    line-height: 48px;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+}
