@@ -5,6 +5,7 @@ import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Loader from '@/components/Loader';
 import Text from '@/components/Text';
+import { AppRouteUrls } from '@/configs/router';
 import { IProduct } from '@/entities/Product';
 
 import cls from './ProductsList.module.scss';
@@ -37,7 +38,7 @@ const ProductsList: FC<ProductsListProps> = ({ products, isLoading }) => {
       <div className={cls.ProductsList__list}>
         {
           products.map(product => (
-            <Link key={product.id} to={String(product.id)}>
+            <Link key={product.id} to={AppRouteUrls.product.create(product.id)}>
               <Card
                 image={checkImage(product.images[0])}
                 captionSlot={product.category.name}
