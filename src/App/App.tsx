@@ -1,22 +1,24 @@
 import '@/styles/index.scss';
 
-import classNames from 'classnames';
+import { BrowserRouter } from 'react-router-dom';
 
-import Header from '@/widgets/Header';
+import RootLayout from '@/widgets/RootLayout';
 
-import { AppRouter } from './providers/AppRouter';
-import { useTheme } from './providers/ThemeProvider';
+import AppRouter from './providers/AppRouter';
+import ErrorBoundary from './providers/ErrorBoundary';
+import ThemeProvider from './providers/ThemeProvider';
 
 function App() {
-  const { theme } = useTheme();
-
   return (
-    <div className={classNames('app', theme)}>
-      <Header />
-      <div className="container">
-        <AppRouter />
-      </div>
-    </div>
+    <BrowserRouter>
+      <ErrorBoundary>
+        <ThemeProvider>
+          <RootLayout>
+            <AppRouter />
+          </RootLayout>
+        </ThemeProvider>
+      </ErrorBoundary>
+    </BrowserRouter>
   );
 }
 

@@ -26,7 +26,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   render() {
     const { hasError } = this.state;
-    const {children} = this.props;
+    const { children } = this.props;
     
     if (hasError) {
       return <PageError />;

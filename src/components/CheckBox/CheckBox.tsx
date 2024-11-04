@@ -20,7 +20,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   onChange,
   disabled,
   ...props
-}) =>{
+}) => {
   const onChangeChecked = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.checked);
   }, [onChange]);
@@ -30,7 +30,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
       className={classNames(
         cls.CheckBox,
         className,
-        {[cls.CheckBox_disabled]: disabled}
+        { [cls.CheckBox_disabled]: disabled }
       )}
     >
       <input

@@ -13,7 +13,7 @@ export type LoaderProps = {
 const sizeToPixles = {
   s: 24,
   m: 48,
-  l: 60
+  l: 60,
 };
 
 const Loader: React.FC<LoaderProps> = ({

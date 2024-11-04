@@ -14,13 +14,13 @@ const meta = {
       control: 'text',
     },
     image: {
-      control: 'text'
+      control: 'text',
     },
     captionSlot: {
       mapping: {
         'undefined': undefined,
       },
-      control: 'text'
+      control: 'text',
     },
     title: {
       mapping: {
@@ -38,7 +38,7 @@ const meta = {
       mapping: {
         'undefined': undefined,
       },
-      control: 'text'
+      control: 'text',
     },
   },
 } satisfies Meta<typeof Card>;
@@ -53,8 +53,8 @@ export const Light: Story = {
     subtitle: 'Описание карточки Описание карточки Описание карточкиОписание карточкиОписание карточки Описание карточки',
     contentSlot: '$63.47',
     actionSlot: <Button>В корзину</Button>,
-    image: './picture.svg'
-  }
+    image: './picture.svg',
+  },
 };
 
 export const Dark: Story = {
@@ -64,9 +64,9 @@ export const Dark: Story = {
     subtitle: 'Описание карточки Описание карточки Описание карточкиОписание карточкиОписание карточки Описание карточки',
     contentSlot: '$63.47',
     actionSlot: <Button>В корзину</Button>,
-    image: './picture.svg'
+    image: './picture.svg',
   },
   decorators: [
     ThemeDecorator(Theme.DARK)
-  ]
+  ],
 };

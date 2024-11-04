@@ -25,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => (
   <button 
-    className={classNames(cls.Button, className, {[cls.Button_loading]: loading}, cls[`Button_${theme}`])}
+    className={classNames(cls.Button, className, { [cls.Button_loading]: loading }, cls[`Button_${theme}`])}
     disabled={loading} 
     {...props}
   >

@@ -5,7 +5,7 @@ import cls from './Text.module.scss';
 
 export type TextProps = {
     className?: string;
-    view?: 'title' | 'button' | 'p-20' | 'p-18' | 'p-16' | 'p-14';
+    view?: 'title' | 'button' | 'p-32' | 'p-20' | 'p-18' | 'p-16' | 'p-14';
     tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'div' | 'p' | 'span';
     weight?: 'normal' | 'medium' | 'bold';
     children: React.ReactNode;
@@ -20,7 +20,7 @@ const Text: React.FC<TextProps> = ({
   weight,
   children,
   color,
-  maxLines
+  maxLines,
 }) => {
   return (
     <Tag

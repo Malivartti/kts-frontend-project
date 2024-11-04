@@ -1,11 +1,11 @@
-import { FC, MouseEvent } from 'react';
+import { FC, MouseEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Loader from '@/components/Loader';
 import Text from '@/components/Text';
-import { IProduct } from '@/shared/types/Product';
+import { IProduct } from '@/entities/Product';
 
 import cls from './ProductsList.module.scss';
 
@@ -16,15 +16,18 @@ type ProductsListProps = {
 
 const ProductsList: FC<ProductsListProps> = ({ products, isLoading }) => {
 
-  const handleClick = (e: MouseEvent<HTMLElement>, productId: number) => {
+  const handleClick = useCallback((e: MouseEvent<HTMLElement>, productId: number) => {
     e.preventDefault();
-    console.log(productId);
-  };
+  }, []);
+
+  const checkImage = useCallback((image: string) => {
+    return image.startsWith('[') ? '' : image;
+  }, []);
 
   return (
     <div>
       <div className={cls.ProductsList__count}>
-        <Text tag='h2' className={cls.ProductsList__title}>Total Product</Text>
+        <Text view='p-32' tag='h2' className={cls.ProductsList__title}>Total Product</Text>
         {
           isLoading
             ? <Loader size='m' />
@@ -36,7 +39,7 @@ const ProductsList: FC<ProductsListProps> = ({ products, isLoading }) => {
           products.map(product => (
             <Link key={product.id} to={String(product.id)}>
               <Card
-                image={product.images[0]}
+                image={checkImage(product.images[0])}
                 captionSlot={product.category.name}
                 title={product.title}
                 subtitle={product.description}

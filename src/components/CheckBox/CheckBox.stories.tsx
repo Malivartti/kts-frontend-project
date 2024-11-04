@@ -18,7 +18,7 @@ const meta = {
         'false': false,
         'undefined': undefined,
       },
-      control: 'boolean'
+      control: 'boolean',
     },
     checked: {
       mapping: {
@@ -26,9 +26,9 @@ const meta = {
         'false': false,
         'undefined': undefined,
       },
-      control: 'boolean'
-    }
-  }
+      control: 'boolean',
+    },
+  },
 } satisfies Meta<typeof CheckBox>;
 
 export default meta;
@@ -36,15 +36,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Light: Story = {
   args: {
-    onChange: () => ''
-  }
+    onChange: () => '',
+  },
 };
 
 export const Dark: Story = {
   args: {
-    onChange: () => ''
+    onChange: () => '',
   },
   decorators: [
     ThemeDecorator(Theme.DARK)
-  ]
+  ],
 };

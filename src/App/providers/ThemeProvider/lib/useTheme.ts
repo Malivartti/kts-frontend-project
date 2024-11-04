@@ -2,7 +2,10 @@ import { useContext } from 'react';
 
 import { LOCAL_STORAGE_KEY_THEME, Theme, ThemeContext } from './ThemeContext';
 
-export const useTheme = () => {
+export const useTheme = (): {
+  theme: Theme | undefined,
+  toggleTheme: () => void
+} => {
   const { theme, setTheme } = useContext(ThemeContext);
 
   const toggleTheme = () => {
@@ -13,7 +16,7 @@ export const useTheme = () => {
     }
   };
 
-  return {theme, toggleTheme};
+  return { theme, toggleTheme };
 };
 
 export default useTheme;

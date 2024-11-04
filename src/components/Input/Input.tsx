@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className={classNames(cls.Input__wrapper, className)}>
       <input
-        className={classNames(cls.Input, {[cls.Input_icon]: afterSlot})}
+        className={classNames(cls.Input, { [cls.Input_icon]: afterSlot })}
         type="text"
         value={innerValue || value}
         onChange={onChangeValue}

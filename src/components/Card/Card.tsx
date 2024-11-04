@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import imgPlaceholder from '@/assets/imagePlaceholder.png';
 import Text from '@/components/Text';
 
 import cls from './Card.module.scss';
@@ -24,10 +25,10 @@ const Card: React.FC<CardProps> = ({
   subtitle,
   contentSlot,
   onClick,
-  actionSlot
+  actionSlot,
 }) => (
   <div className={classNames(cls.Card, className)} onClick={onClick}>
-    <img className={cls.Card__img} src={image} alt="card" />
+    <img className={cls.Card__img} src={image || imgPlaceholder} alt="card" />
     <div className={cls.Card__text}>
       {captionSlot && <Text view="p-14" color="secondary" weight="medium" className={cls.Card__captionSlot}>{captionSlot}</Text>}
       {title && <Text view="p-20" color="primary" maxLines={2} className={cls.Card__title}>{title}</Text>}

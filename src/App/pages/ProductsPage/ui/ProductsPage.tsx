@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { IProduct } from '@/shared/types/Product';
+import { IProduct } from '@/entities/Product';
 
-import { getAllProducts } from '../api';
+import { getProducts } from '../api';
 import Intro from './Intro';
 import ProductsList from './ProductsList';
 import cls from './ProductsPage.module.scss';
@@ -14,7 +14,7 @@ const ProductsPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getAllProducts()
+    getProducts()
       .then(res => {
         setProducts(res);
         setIsLoading(false);

@@ -3,14 +3,14 @@ import React from 'react';
 
 import { Theme } from '@/App/providers/ThemeProvider';
 import { ThemeDecorator } from '@/configs/storybook/ThemeDecorator';
-import { IOption } from '@/shared/types/MultiDropdown';
+import { IOption } from '@/entities/MultiDropdown';
 
 import MultiDropdown, { MultiDropdownProps } from './MultiDropdown';
 
 const OPTIONS = [
   { key: 'msk', value: 'Moscow' },
   { key: 'spb', value: 'Saint Petersburg' },
-  { key: 'ekb', value: 'Ekaterinburg' },
+  { key: 'ekb', value: 'Ekaterinburg' }
 ];
 
 const Component = (props: MultiDropdownProps) => {
@@ -45,8 +45,8 @@ const meta = {
         'false': false,
         'undefined': undefined,
       },
-      control: 'boolean'
-    }
+      control: 'boolean',
+    },
   },
 } satisfies Meta<typeof MultiDropdown>;
 

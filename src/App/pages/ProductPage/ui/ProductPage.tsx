@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import { IProduct } from '@/shared/types/Product';
+import { IProduct } from '@/entities/Product';
 
 import { getProduct } from '../api';
 import BackButton from './BackButton';
@@ -12,8 +12,7 @@ import cls from './ProductPage.module.scss';
 const ProductPage = () => {
   const [product, setProduct] = useState<IProduct>({} as IProduct);
   const [isLoading, setIsLoading] = useState(true);
-  const { pathname } = useLocation();
-  const productId = Number(pathname.split('/').at(-1));
+  const { id: productId } = useParams();
 
   useEffect(() => {
     setIsLoading(true);

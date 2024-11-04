@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon';
 import Input from '@/components/Input';
 import Text from '@/components/Text';
-import { IOption } from '@/shared/types/MultiDropdown';
+import { IOption } from '@/entities/MultiDropdown';
 
 import cls from './MultiDropdown.module.scss';
 
@@ -22,7 +22,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   value,
   onChange,
   disabled,
-  getTitle
+  getTitle,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState('');

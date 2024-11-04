@@ -1,12 +1,15 @@
+import { useCallback } from 'react';
+
 import Button from '@/components/Button';
 import Text from '@/components/Text';
 
 import cls from './PageError.module.scss';
 
 const PageError = () => {
-  const refreshPage = () => {
+
+  const refreshPage = useCallback(() => {
     window.location.reload();
-  };
+  }, []);
 
   return (
     <div className={cls.PageError}>

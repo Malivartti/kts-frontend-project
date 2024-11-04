@@ -6,7 +6,7 @@ const AppRouter = () => {
   return (
     <Routes>
       {
-        ...AppRoutePages.map(({path, element}) => (
+        ...AppRoutePages.map(({ path, element }) => (
           <Route
             key={path}
             path={path}

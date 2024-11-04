@@ -15,27 +15,27 @@ const meta = {
     view: {
       options: ['title', 'button', 'p-20', 'p-18', 'p-16', 'p-14'],
       mapping: ['title', 'button', 'p-20', 'p-18', 'p-16', 'p-14'],
-      control: 'select'
+      control: 'select',
     },
     tag: {
       options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'p', 'span'],
       mapping:  ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'p', 'span'],
-      control: 'select'
+      control: 'select',
     },
     weight: {
       options: ['normal', 'medium', 'bold'],
       mapping:  ['normal', 'medium', 'bold'],
-      control: 'select'
+      control: 'select',
     },
     color: {
       options: ['primary', 'secondary', 'accent'],
       mapping:  ['primary', 'secondary', 'accent'],
-      control: 'select'
+      control: 'select',
     },
     children: {
       type: { name: 'string', required: false },
-      defaultValue: 'Some text'
-    }
+      defaultValue: 'Some text',
+    },
   },
 } satisfies Meta<typeof Text>;
 
@@ -50,8 +50,8 @@ export const Light: Story = {
     It has survived not only five centuries, but also the leap into electronic typesetting,
     remaining essentially unchanged. It was popularised in the 1960s with the release of
     Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-    publishing software like Aldus PageMaker including versions of Lorem Ipsum.`
-  }
+    publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+  },
 };
 
 export const Dark: Story = {
@@ -62,9 +62,9 @@ export const Dark: Story = {
     It has survived not only five centuries, but also the leap into electronic typesetting,
     remaining essentially unchanged. It was popularised in the 1960s with the release of
     Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-    publishing software like Aldus PageMaker including versions of Lorem Ipsum.`
+    publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
   },
   decorators: [
-    ThemeDecorator(Theme.DARK),
+    ThemeDecorator(Theme.DARK)
   ],
 };

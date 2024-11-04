@@ -9,7 +9,7 @@ type IntroProps = {
   className?: string;
 }
 
-const Intro: FC<IntroProps> = ({className}) => {
+const Intro: FC<IntroProps> = ({ className }) => {
   return (
     <div className={classNames(cls.Intro, className)}>
       <Text view='title' tag='h1' className={cls.Intro__title}>Products</Text>

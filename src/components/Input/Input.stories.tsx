@@ -18,13 +18,13 @@ const meta = {
       control: 'text',
       mapping: {
         'undefined': undefined,
-      }
+      },
     },
     placeholder: {
       control: 'text',
       mapping: {
         'undefined': undefined,
-      }
+      },
     },
     disabled: {
       mapping: {
@@ -32,8 +32,8 @@ const meta = {
         'false': false,
         'undefined': undefined,
       },
-      control: 'boolean'
-    }
+      control: 'boolean',
+    },
   },
 } satisfies Meta<typeof Input>;
 
@@ -44,17 +44,17 @@ export const Light: Story = {
   args: {
     afterSlot: <ArrowDownIcon color="secondary" />,
     onChange: () => ({}),
-    value: ''
-  }
+    value: '',
+  },
 };
 
 export const Dark: Story = {
   args: {
     afterSlot: <ArrowDownIcon color="secondary" />,
     onChange: () => ({}),
-    value: ''
+    value: '',
   },
   decorators: [
     ThemeDecorator(Theme.DARK)
-  ]
+  ],
 };

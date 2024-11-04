@@ -11,8 +11,8 @@ type ThemeSwitcherProps = {
   className?: string
 }
 
-const ThemeSwitcher: FC<ThemeSwitcherProps> = ({className}) => {
-  const {theme, toggleTheme} = useTheme();
+const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ className }) => {
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <button 

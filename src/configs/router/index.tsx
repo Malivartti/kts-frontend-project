@@ -1,8 +1,7 @@
-import { RouteProps } from 'react-router-dom';
+import { Navigate, RouteProps } from 'react-router-dom';
 
 import AboutUsPage from '@/App/pages/AboutUsPage';
 import CategoriesPage from '@/App/pages/CategoriesPage';
-import MainPage from '@/App/pages/MainPage';
 import NotFoundPage from '@/App/pages/NotFoundPage';
 import ProductPage from '@/App/pages/ProductPage';
 import ProductsPage from '@/App/pages/ProductsPage';
@@ -19,26 +18,50 @@ export enum AppRoutes {
 export const AppRoutePages: RouteProps[] = [
   {
     path: AppRoutes.MAIN,
-    element: <MainPage />
+    element: <Navigate to={AppRoutes.PRODUCTS} replace={true} />,
   },
   {
     path: AppRoutes.PRODUCTS,
-    element: <ProductsPage />
+    element: <ProductsPage />,
   },
   {
     path: AppRoutes.PRODUCT,
-    element: <ProductPage />
+    element: <ProductPage />,
   },
   {
     path: AppRoutes.CATEGORIES,
-    element: <CategoriesPage />
+    element: <CategoriesPage />,
   },
   {
     path: AppRoutes.ABOUT_US,
-    element: <AboutUsPage />
+    element: <AboutUsPage />,
   },
   {
     path: AppRoutes.NOT_FOUND,
-    element: <NotFoundPage />
+    element: <NotFoundPage />,
   }
 ];
+
+export const AppRouteUrls = {
+  root: AppRoutes.MAIN,
+  products: {
+    mask: AppRoutes.PRODUCTS,
+    create: () => AppRoutes.PRODUCTS,
+  },
+  product: {
+    mask: AppRoutes.PRODUCT,
+    create: (id: number) => `${AppRoutes.PRODUCTS}/${id}`,
+  },
+  categories: {
+    mask: AppRoutes.CATEGORIES,
+    create: () => AppRoutes.CATEGORIES,
+  },
+  aboutUs: {
+    mask: AppRoutes.ABOUT_US,
+    create: () => AppRoutes.ABOUT_US,
+  },
+  notFound: {
+    mask: AppRoutes.NOT_FOUND,
+    create: () => AppRoutes.NOT_FOUND,
+  },
+};

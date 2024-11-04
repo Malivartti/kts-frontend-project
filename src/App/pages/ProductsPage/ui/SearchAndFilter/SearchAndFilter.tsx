@@ -11,7 +11,7 @@ type SearchAndFilterProps = {
   className?: string;
 }
 
-const SearchAndFilter: FC<SearchAndFilterProps> = ({className}) => {
+const SearchAndFilter: FC<SearchAndFilterProps> = ({ className }) => {
   return (
     <div className={classNames(cls.SearchAndFilter, className)}>
       <div className={cls.SearchAndFilter__search}>

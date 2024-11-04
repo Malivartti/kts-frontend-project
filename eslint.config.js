@@ -7,7 +7,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules'] },
+  { ignores: ['dist', 'node_modules'], },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],
@@ -23,7 +23,7 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
-        { allowConstantExport: true },
+        { allowConstantExport: true, }
       ],
     },
   },
@@ -41,8 +41,14 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'warn',
       '@stylistic/js/quotes': ['error', 'single'],
       '@stylistic/js/no-multi-spaces': 'error',
+      '@stylistic/js/arrow-spacing': 'error',
+      '@stylistic/js/comma-dangle': ['error', {
+        objects: 'always-multiline',
+      }],
+      '@stylistic/js/object-curly-spacing': ['error', 'always'],
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-    }
+      'no-console': 'warn',
+    },
   }
 );

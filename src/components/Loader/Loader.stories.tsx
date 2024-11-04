@@ -15,7 +15,7 @@ const meta = {
     size: {
       options: [undefined, 'l', 'm', 's'],
       mapping: ['undefined', 'l', 'm', 's'],
-      control: 'select'
+      control: 'select',
     },
   },
 } satisfies Meta<typeof Loader>;
@@ -30,5 +30,5 @@ export const Light: Story = {
 export const Dark: Story = {
   decorators: [
     ThemeDecorator(Theme.DARK)
-  ]
+  ],
 };
