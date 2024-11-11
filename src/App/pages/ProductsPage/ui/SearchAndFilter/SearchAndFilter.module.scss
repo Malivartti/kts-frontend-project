@@ -1,0 +1,15 @@
+.SearchAndFilter {
+  &__search {
+    display: flex;
+    margin-bottom: 25px;
+  }
+
+  &__Input {
+    width: 100%;
+    margin-right: 25px;
+  }
+
+  &__MultiDropdown {
+    max-width: 300px;
+  }
+}

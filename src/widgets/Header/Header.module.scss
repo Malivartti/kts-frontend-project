@@ -1,0 +1,11 @@
+.Header {
+  background: var(--neutral-color);
+  border-bottom: 1px solid var(--tertiary-color);
+  padding: 24px 0;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
