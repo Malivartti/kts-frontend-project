@@ -1,31 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useLocalObservable } from 'mobx-react-lite';
+import { useEffect } from 'react';
 
-import { IProduct } from '@/entities/Product';
+import ProductsStore from '@/stores/ProductsStore';
 
-import { getProducts } from '../api';
 import Intro from './Intro';
+import Paginations from './Paginations';
 import ProductsList from './ProductsList';
 import cls from './ProductsPage.module.scss';
 import SearchAndFilter from './SearchAndFilter';
 
 const ProductsPage = () => {
-  const [products, setProducts] = useState<IProduct[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const productsStore = useLocalObservable(() => new ProductsStore());
 
   useEffect(() => {
-    setIsLoading(true);
-    getProducts()
-      .then(res => {
-        setProducts(res);
-        setIsLoading(false);
+    productsStore.getPageProducts();
+    productsStore.getCategoryes()
+      .then(() => {
+        productsStore.getFilter();
       });
-  }, []);
+  }, [productsStore]);
 
   return (
     <div className={cls.ProductsPage__container}>
       <Intro className={cls.ProductsPage__Intro}/>
-      <SearchAndFilter className={cls.ProductsPage__SearchAndFilter}/>
-      <ProductsList products={products} isLoading={isLoading}/>
+      <SearchAndFilter className={cls.ProductsPage__SearchAndFilter} productsStore={productsStore} />
+      <ProductsList className={cls.ProductsPage__ProductsList} productsStore={productsStore} />
+      <Paginations productsStore={productsStore} />
     </div>
   );
 };

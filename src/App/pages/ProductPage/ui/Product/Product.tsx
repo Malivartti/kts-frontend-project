@@ -1,24 +1,27 @@
+import { observer } from 'mobx-react-lite';
 import { FC, useCallback } from 'react';
 
 import imgPlaceholder from '@/assets/imagePlaceholder.png';
 import Button, { ButtonTheme } from '@/components/Button';
 import Loader from '@/components/Loader';
 import Text from '@/components/Text';
-import { IProduct } from '@/entities/Product';
+import { Meta } from '@/entities/Meta';
+import ProductStore from '@/stores/ProductStore';
 
 import cls from './Product.module.scss';
 
 type ProductProps = {
-  product: IProduct;
-  isLoading: boolean;
+  productStore: ProductStore
 }
 
-const Product: FC<ProductProps> = ({ product, isLoading }) => {
+const Product: FC<ProductProps> = ({ productStore }) => {
+  const product = productStore.data;
+
   const checkImage = useCallback((image: string) => {
     return image.startsWith('[') ? imgPlaceholder : image;
   }, []);
 
-  if (isLoading) {
+  if (productStore.meta === Meta.loading || productStore.meta === Meta.initial) {
     return <Loader className={cls.Product__loader}/>;
   }
 
@@ -38,4 +41,4 @@ const Product: FC<ProductProps> = ({ product, isLoading }) => {
   );
 };
 
-export default Product;
+export default observer(Product);

@@ -1,32 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useLocalObservable } from 'mobx-react-lite';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { IProduct } from '@/entities/Product';
+import ProductStore from '@/stores/ProductStore';
 
-import { getProduct } from '../api';
 import BackButton from './BackButton';
 import Product from './Product/Product';
 import cls from './ProductPage.module.scss';
 
 
 const ProductPage = () => {
-  const [product, setProduct] = useState<IProduct>({} as IProduct);
-  const [isLoading, setIsLoading] = useState(true);
+  const productStore = useLocalObservable(() => new ProductStore());
   const { id: productId } = useParams();
 
   useEffect(() => {
-    setIsLoading(true);
-    getProduct(productId)
-      .then((res) => {
-        setProduct(res);
-        setIsLoading(false);
-      });
-  }, [productId]);
+    productStore.getProduct(productId);
+  }, [productStore, productId]);
 
   return (
     <div className={ cls.ProductPage__container}>
       <BackButton className={cls.ProductPage__BackButton}/>
-      <Product product={product} isLoading={isLoading} />
+      <Product productStore={productStore} />
     </div>
   );
 };

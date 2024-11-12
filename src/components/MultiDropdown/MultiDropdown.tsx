@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon';
@@ -14,6 +15,7 @@ export type MultiDropdownProps = {
   onChange: (value: IOption[]) => void;
   disabled?: boolean;
   getTitle: (value: IOption[]) => string;
+  multi?: boolean;
 };
 
 const MultiDropdown: React.FC<MultiDropdownProps> = ({
@@ -23,6 +25,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   onChange,
   disabled,
   getTitle,
+  multi = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState('');
@@ -44,16 +47,24 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 
   const handleOptionChange = (option: IOption) => {
     if (!value.find(item => item.key === option.key)) {
+      if (!multi) {
+        onChange([option]);
+        return;
+      }
       onChange([...value, option]);
     } else {
-      onChange(value.filter(item => item !== option));
+      if (!multi) {
+        onChange([]);
+        return;
+      }
+      onChange(value.filter(item => item.key !== option.key));
     }
   };
 
   return (
     <div
       ref={dropdownRef}
-      className={className}
+      className={classNames(cls.MultiDropdown, className)}
     >
       <Input
         type="text"
