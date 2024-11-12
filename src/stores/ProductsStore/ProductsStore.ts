@@ -91,7 +91,7 @@ class ProductsStore {
     rootStore.setCurrentPage(page);
 
     try {
-      if (this._totalPages === 0) {
+      if (this._totalPages === 0 || page === 1) {
         const resCount: AxiosResponse = await axios({
           method: 'get',
           url: urlCount,

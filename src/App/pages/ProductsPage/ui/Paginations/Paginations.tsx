@@ -30,6 +30,7 @@ const Paginations: FC<PaginationProps> = ({ productsStore }) => {
   }, [productsStore]);
 
   if (!productsStore.products.length) return;
+  if (productsStore.totalPages === 1) return;
   return (
     <div className={cls.Paginations}>
       <BackIcon 
