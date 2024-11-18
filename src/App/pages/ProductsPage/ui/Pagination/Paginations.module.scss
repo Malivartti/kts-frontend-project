@@ -1,0 +1,14 @@
+.Paginations {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__btn {
+    cursor: pointer;
+  }
+
+  &__btn_disabled {
+    cursor: default;
+    color: var(--tertiary-color);
+  }
+}

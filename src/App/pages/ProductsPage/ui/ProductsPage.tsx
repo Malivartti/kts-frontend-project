@@ -1,33 +1,33 @@
-import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-import { IProduct } from '@/entities/Product';
+import rootStore from '@/stores/RootStore';
 
-import { getProducts } from '../api';
+import { useProductsStore } from '../context';
 import Intro from './Intro';
+import Paginations from './Pagination';
 import ProductsList from './ProductsList';
 import cls from './ProductsPage.module.scss';
 import SearchAndFilter from './SearchAndFilter';
 
 const ProductsPage = () => {
-  const [products, setProducts] = useState<IProduct[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const paginationModel = useProductsStore().paginationModel;
+  const search = rootStore.query.search;
+  const [ searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    setIsLoading(true);
-    getProducts()
-      .then(res => {
-        setProducts(res);
-        setIsLoading(false);
-      });
-  }, []);
+    setSearchParams(search);
+  }, [setSearchParams, search]);
 
   return (
     <div className={cls.ProductsPage__container}>
       <Intro className={cls.ProductsPage__Intro}/>
-      <SearchAndFilter className={cls.ProductsPage__SearchAndFilter}/>
-      <ProductsList products={products} isLoading={isLoading}/>
+      <SearchAndFilter className={cls.ProductsPage__SearchAndFilter} />
+      <ProductsList className={cls.ProductsPage__ProductsList} />
+      <Paginations model={paginationModel}/>
     </div>
   );
 };
 
-export default ProductsPage;
+export default observer(ProductsPage);
