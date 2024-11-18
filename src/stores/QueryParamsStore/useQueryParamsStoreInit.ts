@@ -1,5 +1,3 @@
-
-
 import { useLocation } from 'react-router-dom';
 
 import rootStore from '../RootStore';

@@ -31,7 +31,7 @@ const Card: React.FC<CardProps> = ({
     <img className={cls.Card__img} src={image || imgPlaceholder} alt="card" />
     <div className={cls.Card__text}>
       {captionSlot && <Text view="p-14" color="secondary" weight="medium" className={cls.Card__captionSlot}>{captionSlot}</Text>}
-      {title && <Text view="p-20" color="primary" maxLines={2} className={cls.Card__title}>{title}</Text>}
+      {title && <Text view="p-20" color="primary" maxLines={1} className={cls.Card__title}>{title}</Text>}
       {subtitle && <Text view="p-16" color="secondary" maxLines={3} className={cls.Card__subtitle}>{subtitle}</Text>}
       <div className={cls.Card__content}>
         {contentSlot && <Text view="p-18" color="primary" weight="bold">{contentSlot}</Text>}

@@ -1,33 +1,33 @@
-import { useLocalObservable } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-import ProductsStore from '@/stores/ProductsStore';
+import rootStore from '@/stores/RootStore';
 
+import { useProductsStore } from '../context';
 import Intro from './Intro';
-import Paginations from './Paginations';
+import Paginations from './Pagination';
 import ProductsList from './ProductsList';
 import cls from './ProductsPage.module.scss';
 import SearchAndFilter from './SearchAndFilter';
 
 const ProductsPage = () => {
-  const productsStore = useLocalObservable(() => new ProductsStore());
+  const paginationModel = useProductsStore().paginationModel;
+  const search = rootStore.query.search;
+  const [ searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    productsStore.getPageProducts();
-    productsStore.getCategoryes()
-      .then(() => {
-        productsStore.getFilter();
-      });
-  }, [productsStore]);
+    setSearchParams(search);
+  }, [setSearchParams, search]);
 
   return (
     <div className={cls.ProductsPage__container}>
       <Intro className={cls.ProductsPage__Intro}/>
-      <SearchAndFilter className={cls.ProductsPage__SearchAndFilter} productsStore={productsStore} />
-      <ProductsList className={cls.ProductsPage__ProductsList} productsStore={productsStore} />
-      <Paginations productsStore={productsStore} />
+      <SearchAndFilter className={cls.ProductsPage__SearchAndFilter} />
+      <ProductsList className={cls.ProductsPage__ProductsList} />
+      <Paginations model={paginationModel}/>
     </div>
   );
 };
 
-export default ProductsPage;
+export default observer(ProductsPage);

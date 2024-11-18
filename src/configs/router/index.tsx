@@ -5,6 +5,7 @@ import CategoriesPage from '@/App/pages/CategoriesPage';
 import NotFoundPage from '@/App/pages/NotFoundPage';
 import ProductPage from '@/App/pages/ProductPage';
 import ProductsPage from '@/App/pages/ProductsPage';
+import { ProductsStoreContextProvider } from '@/App/pages/ProductsPage/context';
 
 export enum AppRoutes {
   MAIN = '/',
@@ -22,7 +23,9 @@ export const AppRoutePages: RouteProps[] = [
   },
   {
     path: AppRoutes.PRODUCTS,
-    element: <ProductsPage />,
+    element: (<ProductsStoreContextProvider>
+      <ProductsPage />
+    </ProductsStoreContextProvider>) ,
   },
   {
     path: AppRoutes.PRODUCT,

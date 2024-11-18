@@ -16,6 +16,7 @@ export type MultiDropdownProps = {
   disabled?: boolean;
   getTitle: (value: IOption[]) => string;
   multi?: boolean;
+  placeholder?: string;
 };
 
 const MultiDropdown: React.FC<MultiDropdownProps> = ({
@@ -26,6 +27,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   disabled,
   getTitle,
   multi = true,
+  placeholder,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState('');
@@ -70,7 +72,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
         type="text"
         onFocus={() => setIsOpen(true)}
         value={isOpen ? filter : value.length ? getTitle(value) : ''}
-        placeholder={getTitle(value)}
+        placeholder={getTitle(value) || placeholder}
         onChange={(value: string) => setFilter(value)}
         afterSlot={<ArrowDownIcon color='secondary'/>}
         disabled={disabled}
