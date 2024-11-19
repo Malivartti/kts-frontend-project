@@ -19,7 +19,7 @@ const meta = {
       mapping: {
         'true': true,
         'false': false,
-        'undefined': undefined,
+        'undefined': undefined as undefined,
       },
     },
     loading: {
@@ -29,7 +29,7 @@ const meta = {
       mapping: {
         'true': true,
         'false': false,
-        'undefined': undefined,
+        'undefined': undefined as undefined,
       },
     },
     children: {

@@ -42,7 +42,6 @@ class ProductStore {
 
   async getProduct(productId: string = ''): Promise<void> {
     const url = endpoints.product.getProduct(productId);
-  
     try {
       const res: AxiosResponse = await axios({
         method: 'get',

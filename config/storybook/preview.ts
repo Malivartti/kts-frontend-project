@@ -1,10 +1,8 @@
-import '../src/styles/index.scss';
-
 import type { Preview } from '@storybook/react';
 
-import { Theme } from '../src/app/providers/ThemeProvider';
-import { StyleDecorator } from '../src/configs/storybook/StyleDecorator';
-import { ThemeDecorator } from '../src/configs/storybook/ThemeDecorator';
+import { Theme } from '../../src/App/providers/ThemeProvider';
+import { StyleDecorator } from '../../src/configs/storybook/StyleDecorator';
+import { ThemeDecorator } from '../../src/configs/storybook/ThemeDecorator';
 
 const preview: Preview = {
   parameters: {

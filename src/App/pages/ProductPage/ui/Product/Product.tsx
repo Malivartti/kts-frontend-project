@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { FC, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import imgPlaceholder from '@/assets/imagePlaceholder.png';
+import imgPlaceholder from '@/assets/images/imagePlaceholder.png';
 import Button, { ButtonTheme } from '@/components/Button';
 import Loader from '@/components/Loader';
 import Text from '@/components/Text';

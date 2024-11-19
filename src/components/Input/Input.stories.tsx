@@ -17,20 +17,20 @@ const meta = {
     value: {
       control: 'text',
       mapping: {
-        'undefined': undefined,
+        'undefined': undefined as undefined,
       },
     },
     placeholder: {
       control: 'text',
       mapping: {
-        'undefined': undefined,
+        'undefined': undefined as undefined,
       },
     },
     disabled: {
       mapping: {
         'true': true,
         'false': false,
-        'undefined': undefined,
+        'undefined': undefined as undefined,
       },
       control: 'boolean',
     },
