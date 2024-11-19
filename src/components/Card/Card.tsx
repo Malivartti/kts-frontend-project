@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import imgPlaceholder from '@/assets/imagePlaceholder.png';
+import imgPlaceholder from '@/assets/images/imagePlaceholder.png';
 import Text from '@/components/Text';
 
 import cls from './Card.module.scss';

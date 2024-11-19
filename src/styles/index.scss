@@ -1,8 +1,9 @@
-@use 'reset' as *;
-@use 'variables' as *;
+@use './reset' as *;
+@use './variables' as *;
+@use './fonts' as *;
 @use './theme/light' as *;
 @use './theme/dark' as *;
-@use './fonts/fonts' as *;
+
 
 html {
   font-family: var(--font-family);

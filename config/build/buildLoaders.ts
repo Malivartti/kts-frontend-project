@@ -1,11 +1,12 @@
 import webpack from 'webpack';
-import { BuildOptions } from './types/config';
+
 import { buildCssLoader } from './loaders/buildCssLoader';
 import { buildSvgLoader } from './loaders/buildSvgLoader';
+import { BuildOptions } from './types/config';
 
 export function buildLoaders({ isDev } : BuildOptions): webpack.RuleSetRule[] {
   const babelLoader = {
-    test: /\.(js|ts|jsx|tsx)$/,
+    test: /\.(js|ts|tsx)$/,
     exclude: /node_modules/,
     use: {
       loader: 'babel-loader',
@@ -16,12 +17,9 @@ export function buildLoaders({ isDev } : BuildOptions): webpack.RuleSetRule[] {
   };
 
   const fileLoader = {
-    test: /\.(png|jpe?g|gif|woff|woff2)$/i,
-    use: [
-      {
-        loader: 'file-loader',
-      },
-    ],
+    test: /\.(png|jpg|gif|ico|woff|woff2|eot|ttf|otf)$/i,
+    type: 'asset/resource',
+    dependency: { not: ['url'] },
   };
 
   const svgLoader = buildSvgLoader();
@@ -39,6 +37,6 @@ export function buildLoaders({ isDev } : BuildOptions): webpack.RuleSetRule[] {
     fileLoader,
     svgLoader,
     typescriptLoader,
-    cssLoader,
+    cssLoader
   ];
 }

@@ -1,6 +1,7 @@
-import webpack from 'webpack';
-import { BuildOptions } from './types/config';
 import path from 'path';
+import webpack from 'webpack';
+
+import { BuildOptions } from './types/config';
 
 export function buildResolves({ paths }: BuildOptions): webpack.ResolveOptions {
   return {
@@ -9,7 +10,7 @@ export function buildResolves({ paths }: BuildOptions): webpack.ResolveOptions {
     modules: [paths.src, 'node_modules'],
     mainFiles: ['index'],
     alias: {
-      '@': path.resolve(__dirname, paths.src)
+      '@': path.resolve(__dirname, paths.src),
     },
   };
 }

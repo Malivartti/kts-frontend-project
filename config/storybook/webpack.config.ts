@@ -1,5 +1,6 @@
-import webpack, { RuleSetRule } from 'webpack';
 import path from 'path';
+import webpack, { RuleSetRule } from 'webpack';
+
 import { buildCssLoader } from '../build/loaders/buildCssLoader';
 import { buildSvgLoader } from '../build/loaders/buildSvgLoader';
 
@@ -8,8 +9,8 @@ export default ({ config }: {config: webpack.Configuration}) => {
   config.resolve?.extensions?.push('.ts', '.tsx', '.js');
   if (config.resolve?.alias) {
     config.resolve.alias = {
-      '@': path.resolve(__dirname, '..', '..', 'src')
-    }
+      '@': path.resolve(__dirname, '..', '..', 'src'),
+    };
   }
 
   config.module?.rules?.push(buildCssLoader(true));
