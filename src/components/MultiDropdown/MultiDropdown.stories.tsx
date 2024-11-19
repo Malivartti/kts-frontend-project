@@ -43,7 +43,7 @@ const meta = {
       mapping: {
         'true': true,
         'false': false,
-        'undefined': undefined,
+        'undefined': undefined as undefined,
       },
       control: 'boolean',
     },

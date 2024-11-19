@@ -18,25 +18,25 @@ const meta = {
     },
     captionSlot: {
       mapping: {
-        'undefined': undefined,
+        'undefined': undefined as undefined,
       },
       control: 'text',
     },
     title: {
       mapping: {
-        'undefined': undefined,
+        'undefined': undefined as undefined,
       },
       control: 'text',
     },
     subtitle: {
       mapping: {
-        'undefined': undefined,
+        'undefined': undefined as undefined,
       },
       control: 'text',
     },
     contentSlot: {
       mapping: {
-        'undefined': undefined,
+        'undefined': undefined as undefined,
       },
       control: 'text',
     },
