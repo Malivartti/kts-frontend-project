@@ -1,7 +1,6 @@
 import { Navigate, RouteProps } from 'react-router-dom';
 
 import AboutUsPage from '@/App/pages/AboutUsPage';
-import CategoriesPage from '@/App/pages/CategoriesPage';
 import NotFoundPage from '@/App/pages/NotFoundPage';
 import ProductPage from '@/App/pages/ProductPage';
 import ProductsPage from '@/App/pages/ProductsPage';
@@ -32,10 +31,6 @@ export const AppRoutePages: RouteProps[] = [
     element: <ProductPage />,
   },
   {
-    path: AppRoutes.CATEGORIES,
-    element: <CategoriesPage />,
-  },
-  {
     path: AppRoutes.ABOUT_US,
     element: <AboutUsPage />,
   },
@@ -54,10 +49,6 @@ export const AppRouteUrls = {
   product: {
     mask: AppRoutes.PRODUCT,
     create: (id: number) => `${AppRoutes.PRODUCTS}/${id}`,
-  },
-  categories: {
-    mask: AppRoutes.CATEGORIES,
-    create: () => AppRoutes.CATEGORIES,
   },
   aboutUs: {
     mask: AppRoutes.ABOUT_US,

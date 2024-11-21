@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import Text from '@/components/Text';
 import { AppRoutes } from '@/configs/router';
+import RandomProductLink from '@/widgets/Header/RandomProductLink';
 
 import cls from './Navbar.module.scss';
 
@@ -16,9 +17,9 @@ const Navbar = () => {
       <Link to={AppRoutes.PRODUCTS} className={cls.Navbar__link}>
         <Text view='p-18' color={currentHref === AppRoutes.PRODUCTS ? 'accent' : 'primary'}>{t('Продукты')}</Text>
       </Link>
-      <Link to={AppRoutes.CATEGORIES} className={cls.Navbar__link}>
-        <Text view='p-18' color={currentHref === AppRoutes.CATEGORIES ? 'accent' : 'primary'}>{t('Категории')}</Text>
-      </Link>
+      <RandomProductLink className={cls.Navbar__link}>
+        <Text view='p-18' color='primary'>{t('Случайный продукт')}</Text>
+      </RandomProductLink>
       <Link to={AppRoutes.ABOUT_US} className={cls.Navbar__link}>
         <Text view='p-18' color={currentHref === AppRoutes.ABOUT_US ? 'accent' : 'primary'}>{t('О нас')}</Text>
       </Link>
