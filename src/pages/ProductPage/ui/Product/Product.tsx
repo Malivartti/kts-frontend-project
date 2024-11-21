@@ -35,7 +35,7 @@ const Product: FC<ProductProps> = ({ productStore }) => {
 
   return (
     <div className={cls.Product}>
-      <img src={checkImage(product.images)} alt={product.title} />
+      <div className={cls.Product__img} style={{ 'backgroundImage': `url(${product.images[0]})` }}></div>
       <div className={cls.Product__content}>
         <Text view='title' tag='h1' className={cls.Product__title}>{product.title}</Text>
         <Text view='p-20' tag='p' color='secondary' className={cls.Product__description}>{product.description}</Text>
