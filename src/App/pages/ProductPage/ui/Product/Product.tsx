@@ -48,8 +48,8 @@ const Product: FC<ProductProps> = ({ productStore }) => {
         <Text view='p-20' tag='p' color='secondary' className={cls.Product__description}>{product.description}</Text>
         <Text view='title' className={cls.Product__price}>{`$${product.price}`}</Text>
         <div className={cls.Product__buttons}>
-          <Button className={cls.Product__button}>{t('Купить сейчас')}</Button>
-          <Button theme={ButtonTheme.OUTLINE} className={cls.Product__button}>{t('Добавить в корзину')}</Button>
+          <Button className={cls.Product__button}>{t('Купить')}</Button>
+          <Button theme={ButtonTheme.OUTLINE} className={cls.Product__button}>{t('В корзину')}</Button>
         </div>
       </div>
     </div>

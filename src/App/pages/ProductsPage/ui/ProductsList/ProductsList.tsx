@@ -58,7 +58,7 @@ const ProductsList: FC<ProductsListProps> = ({ className }) => {
                     title={product.title}
                     subtitle={product.description}
                     contentSlot={`$${product.price}`}
-                    actionSlot={<Button onClick={(e) => handleClick(e, product.id)}>{t('Добавить в корзину')}</Button>}
+                    actionSlot={<Button onClick={(e) => handleClick(e, product.id)}>{t('В корзину')}</Button>}
                   />
                 </Link>
               ))
