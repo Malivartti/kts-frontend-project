@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import { FC, FormEvent, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Button from '@/components/Button';
 import Input from '@/components/Input';
@@ -17,6 +18,7 @@ type SearchAndFilterProps = {
 
 const SearchAndFilter: FC<SearchAndFilterProps> = ({ className }) => {
   const productsStore = useProductsStore();
+  const { t } = useTranslation('products');
 
   const formatCategoryes = useCallback((categories: ICategory[]): IOption[] => {
     return categories.map((category) => ({
@@ -49,9 +51,9 @@ const SearchAndFilter: FC<SearchAndFilterProps> = ({ className }) => {
           value={productsStore.search}
           onChange={changeSearch}
           className={cls.SearchAndFilter__Input}
-          placeholder='Search product'
+          placeholder={t('Поиск продукта')}
         />
-        <Button>Find now</Button>
+        <Button>{t('Найти')}</Button>
       </form>
       <MultiDropdown
         options={formatCategoryes(productsStore.categories)}
@@ -60,7 +62,7 @@ const SearchAndFilter: FC<SearchAndFilterProps> = ({ className }) => {
         getTitle={getTitle}
         className={cls.SearchAndFilter__MultiDropdown}
         multi={false}
-        placeholder='Filter'
+        placeholder={t('Фильтр')}
       />
     </div>
   );

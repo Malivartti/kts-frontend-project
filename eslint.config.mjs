@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import stylisticJs from '@stylistic/eslint-plugin-js';
+import i18next from 'eslint-plugin-i18next';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -7,9 +8,9 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules'], },
+  { ignores: ['dist', 'node_modules'] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended, i18next.configs['flat/recommended']],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
@@ -23,7 +24,7 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
-        { allowConstantExport: true, }
+        { allowConstantExport: true }
       ],
     },
   },
@@ -32,7 +33,7 @@ export default tseslint.config(
       '@stylistic/js': stylisticJs,
       '@typescript-eslint': tseslint.plugin,
       'simple-import-sort': simpleImportSort,
-
+      
     },
     rules: {
       '@typescript-eslint/no-unused-vars': 'warn',

@@ -1,3 +1,4 @@
+/* eslint-disable i18next/no-literal-string */
 import { Link } from 'react-router-dom';
 
 import LogoIcon from '@/components/icons/LogoIcon';

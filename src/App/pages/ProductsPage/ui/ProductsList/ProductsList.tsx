@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { FC, MouseEvent, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import Button from '@/components/Button';
@@ -17,6 +18,7 @@ type ProductsListProps = {
 
 const ProductsList: FC<ProductsListProps> = ({ className }) => {
   const productsStore = useProductsStore();
+  const { t } = useTranslation('products');
 
   const handleClick = useCallback((e: MouseEvent<HTMLElement>, productId: number) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ const ProductsList: FC<ProductsListProps> = ({ className }) => {
   return (
     <div className={className}>
       <div className={cls.ProductsList__count}>
-        <Text view='p-32' tag='h2' className={cls.ProductsList__title}>Total Product</Text>
+        <Text view='p-32' tag='h2' className={cls.ProductsList__title}>{t('Всего продуктов')}</Text>
         {
           (productsStore.isLoading)
             ? <Loader size='m' />
@@ -36,7 +38,7 @@ const ProductsList: FC<ProductsListProps> = ({ className }) => {
         {
           productsStore.isNoProducts
             ? (
-              <Text tag='h3' view='p-20'>There are no products</Text>
+              <Text tag='h3' view='p-20'>{t('Нет продуктов')}</Text>
             )
 
             : (
@@ -48,7 +50,7 @@ const ProductsList: FC<ProductsListProps> = ({ className }) => {
                     title={product.title}
                     subtitle={product.description}
                     contentSlot={`$${product.price}`}
-                    actionSlot={<Button onClick={(e) => handleClick(e, product.id)}>Add to Cart</Button>}
+                    actionSlot={<Button onClick={(e) => handleClick(e, product.id)}>{t('Добавить в корзину')}</Button>}
                   />
                 </Link>
               ))

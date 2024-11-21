@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { FC, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import imgPlaceholder from '@/assets/images/imagePlaceholder.png';
@@ -18,6 +19,7 @@ type ProductProps = {
 const Product: FC<ProductProps> = ({ productStore }) => {
   const product = productStore.data;
   const navigate = useNavigate();
+  const { t } = useTranslation('product');
 
   const checkImage = useCallback((images: string[]): string => {
     return !images.length ? imgPlaceholder : images[0];
@@ -46,8 +48,8 @@ const Product: FC<ProductProps> = ({ productStore }) => {
         <Text view='p-20' tag='p' color='secondary' className={cls.Product__description}>{product.description}</Text>
         <Text view='title' className={cls.Product__price}>{`$${product.price}`}</Text>
         <div className={cls.Product__buttons}>
-          <Button className={cls.Product__button}>Buy Now</Button>
-          <Button theme={ButtonTheme.OUTLINE} className={cls.Product__button}>Add to Cart</Button>
+          <Button className={cls.Product__button}>{t('Купить сейчас')}</Button>
+          <Button theme={ButtonTheme.OUTLINE} className={cls.Product__button}>{t('Добавить в корзину')}</Button>
         </div>
       </div>
     </div>

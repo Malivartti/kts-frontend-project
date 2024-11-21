@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Text from '@/components/Text';
 
@@ -10,10 +11,11 @@ type IntroProps = {
 }
 
 const Intro: FC<IntroProps> = ({ className }) => {
+  const { t } = useTranslation('products');
   return (
     <div className={classNames(cls.Intro, className)}>
-      <Text view='title' tag='h1' className={cls.Intro__title}>Products</Text>
-      <Text view='p-20' color='secondary'>We display products based on the latest products we have, if you want to see our old products please enter the name of the item</Text>
+      <Text view='title' tag='h1' className={cls.Intro__title}>{t('Заголовок')}</Text>
+      <Text view='p-20' color='secondary'>{t('Описание')}</Text>
     </div>
   );
 };
