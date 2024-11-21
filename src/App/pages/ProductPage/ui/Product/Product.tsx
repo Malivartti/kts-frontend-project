@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 import imgPlaceholder from '@/assets/images/imagePlaceholder.png';
 import Button, { ButtonTheme } from '@/components/Button';
-import Loader from '@/components/Loader';
 import Text from '@/components/Text';
 import { AppRouteUrls } from '@/configs/router';
 import ProductStore from '@/stores/ProductStore';
@@ -31,11 +30,6 @@ const Product: FC<ProductProps> = ({ productStore }) => {
     }
   }, [productStore.isError, navigate]);
 
-
-  if (productStore.isLoading) {
-    return <Loader className={cls.Product__loader}/>;
-  }
-      
   if (productStore.isError) {
     return null;
   }
