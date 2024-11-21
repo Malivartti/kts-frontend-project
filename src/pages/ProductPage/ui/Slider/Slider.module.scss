@@ -1,0 +1,15 @@
+.Slider {
+  &__img {
+    background-color: var(--skeleton-base-color);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 100%;
+  }
+
+  &__slider {
+    --loader-bar-height: 0;
+    --slider-height-percentage: 100%;
+    --organic-arrow-height: 25px;
+  }
+}
