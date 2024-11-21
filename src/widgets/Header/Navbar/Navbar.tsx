@@ -1,9 +1,8 @@
+import { AppRoutes } from '@shared/configs/router';
+import Text from '@shared/ui/Text';
+import RandomProductLink from '@widgets/Header/RandomProductLink';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
-
-import Text from '@/components/Text';
-import { AppRoutes } from '@/configs/router';
-import RandomProductLink from '@/widgets/Header/RandomProductLink';
 
 import cls from './Navbar.module.scss';
 

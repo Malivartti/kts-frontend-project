@@ -1,7 +1,7 @@
-import BugIcon from '@/components/icons/BugIcon';
-import UserIcon from '@/components/icons/UserIcon';
-import LangSwitcher from '@/widgets/LangSwitcher';
-import ThemeSwitcher from '@/widgets/ThemeSwitcher';
+import BugIcon from '@shared/ui/icons/BugIcon';
+import UserIcon from '@shared/ui/icons/UserIcon';
+import LangSwitcher from '@widgets/LangSwitcher';
+import ThemeSwitcher from '@widgets/ThemeSwitcher';
 
 import cls from './Actions.module.scss';
 

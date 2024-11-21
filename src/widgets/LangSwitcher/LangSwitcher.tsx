@@ -1,8 +1,7 @@
+import Text from '@shared/ui/Text';
 import classNames from 'classnames';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import Text from '@/components/Text';
 
 import cls from './LangSwitcher.module.scss';
 

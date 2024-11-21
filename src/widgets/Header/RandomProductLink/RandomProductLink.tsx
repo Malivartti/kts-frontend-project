@@ -1,11 +1,10 @@
+import { endpoints } from '@shared/configs/api';
+import { AppRouteUrls } from '@shared/configs/router';
+import { randomNumber } from '@shared/lib/random';
 import axios, { AxiosResponse } from 'axios';
 import classNames from 'classnames';
 import { FC, ReactNode, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { endpoints } from '@/configs/api';
-import { AppRouteUrls } from '@/configs/router';
-import { randomNumber } from '@/shared/lib/random';
 
 import cls from './RandomProductLink.module.scss';
 

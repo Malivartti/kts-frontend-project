@@ -1,8 +1,7 @@
+import { useTheme } from '@app/providers/ThemeProvider';
+import { useQueryParamsStoreInit } from '@shared/stores/QueryParamsStore';
 import classNames from 'classnames';
 import { FC, ReactNode } from 'react';
-
-import { useTheme } from '@/App/providers/ThemeProvider';
-import { useQueryParamsStoreInit } from '@/stores/QueryParamsStore';
 
 import ContainerLayout from '../ContainerLayout';
 import Header from '../Header';

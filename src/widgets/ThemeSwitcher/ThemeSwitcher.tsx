@@ -1,9 +1,8 @@
+import { Theme, useTheme } from '@app/providers/ThemeProvider';
+import MoonIcon from '@shared/ui/icons/MoonIcon';
+import SunIcon from '@shared/ui/icons/SunIcon';
 import classNames from 'classnames';
 import { FC } from 'react';
-
-import { Theme, useTheme } from '@/App/providers/ThemeProvider';
-import MoonIcon from '@/components/icons/MoonIcon';
-import SunIcon from '@/components/icons/SunIcon';
 
 import cls from './ThemeSwitcher.module.scss';
 

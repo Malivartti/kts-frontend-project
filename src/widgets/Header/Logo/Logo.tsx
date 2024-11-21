@@ -1,9 +1,8 @@
 /* eslint-disable i18next/no-literal-string */
+import { AppRoutes } from '@shared/configs/router';
+import LogoIcon from '@shared/ui/icons/LogoIcon';
+import Text from '@shared/ui/Text';
 import { Link } from 'react-router-dom';
-
-import LogoIcon from '@/components/icons/LogoIcon';
-import Text from '@/components/Text';
-import { AppRoutes } from '@/configs/router';
 
 import cls from './Logo.module.scss';
 
