@@ -1,1 +1,1 @@
-export { default } from './ui/ProductsPage';
+export { default } from './ui/ProductsPage.lazy';

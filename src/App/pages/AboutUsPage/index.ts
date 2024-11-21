@@ -1,1 +1,1 @@
-export { default } from './AboutUsPage';
+export { default } from './AboutUsPage.lazy';
