@@ -1,0 +1,50 @@
+.CardSkeleton {
+  display: flex;
+  flex-direction: column;
+  background: var(--neutral-color);
+
+  &:hover {
+    box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
+  }
+
+  &__img {
+    padding-bottom: 96%;
+    border-radius: 0;
+  }
+
+  &__text {
+    padding: 24px 12px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__caption {
+    margin-bottom: 8px;
+  }
+
+  &__title {
+    margin-bottom: 8px;
+    height: 20px;
+  }
+
+  &__subtitle {
+    height: 16px;
+  }
+
+  &__content {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__price {
+    width: 50px;
+    height: 22px;
+  }
+
+  &__action {
+    width: 130px;
+    height: 46px;
+  }
+}

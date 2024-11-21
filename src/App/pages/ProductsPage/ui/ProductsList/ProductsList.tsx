@@ -36,11 +36,19 @@ const ProductsList: FC<ProductsListProps> = ({ className }) => {
       </div>
       <div className={cls.ProductsList__list}>
         {
+          productsStore.isLoading && (
+            <>
+              <Card isLoading image='' title='' subtitle='' />
+              <Card isLoading image='' title='' subtitle='' />
+              <Card isLoading image='' title='' subtitle='' />
+            </>
+          )
+        }
+        {
           productsStore.isNoProducts
             ? (
               <Text tag='h3' view='p-20'>{t('Нет продуктов')}</Text>
             )
-
             : (
               productsStore.products.map(product => (
                 <Link key={product.id} to={AppRouteUrls.product.create(product.id)}>

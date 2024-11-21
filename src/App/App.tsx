@@ -1,6 +1,7 @@
 import '@/styles/index.scss';
 import '@/configs/mobx';
 import '@/configs/i18n/i18n';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import { BrowserRouter } from 'react-router-dom';
 

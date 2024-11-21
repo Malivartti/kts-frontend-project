@@ -5,7 +5,7 @@ import { Theme } from '@/App/providers/ThemeProvider';
 import { ThemeDecorator } from '@/configs/storybook/ThemeDecorator';
 
 import Button from '../Button';
-import Card from './Card';
+import Card from './ui/Card';
 
 const meta = {
   title: 'components/Card',
