@@ -40,6 +40,9 @@ class ProductStore {
   }
 
   async getProduct(productId: string = ''): Promise<void> {
+    this._meta = Meta.loading;
+    this._data = {} as IProduct;
+
     const url = endpoints.product.getProduct(productId);
     try {
       const res: AxiosResponse = await axios({
