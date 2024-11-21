@@ -27,7 +27,7 @@ const Card: React.FC<CardProps> = ({
   actionSlot,
 }) => (
   <div className={classNames(cls.Card, className)} onClick={onClick}>
-    <img className={cls.Card__img} src={image || imgPlaceholder} alt="card" />
+    <div className={cls.Card__img} style={{ 'backgroundImage': `url(${image})` }}></div>
     <div className={cls.Card__text}>
       {captionSlot && <Text view="p-14" color="secondary" weight="medium" className={cls.Card__captionSlot}>{captionSlot}</Text>}
       {title && <Text view="p-20" color="primary" maxLines={1} className={cls.Card__title}>{title}</Text>}
