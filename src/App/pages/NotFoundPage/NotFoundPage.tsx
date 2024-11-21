@@ -14,7 +14,7 @@ const NotFoundPage = () => {
   
   const toMain = useCallback(() => {
     navigate(AppRouteUrls.root);
-  }, []);
+  }, [navigate]);
 
   return (
     <div className={cls.NotFoundPage}>
