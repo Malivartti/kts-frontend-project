@@ -1,24 +1,24 @@
+import { CategoryModel } from '@entities/Category';
 import { Meta } from '@entities/Meta';
-import { IOption } from '@entities/MultiDropdown';
-import { ICategory, IProduct } from '@entities/Product';
+import { OptionModel } from '@entities/Option';
+import { normalizeProducts, ProductModel } from '@entities/Product';
 import { endpoints } from '@shared/configs/api';
 import { ProductsSearchParams } from '@shared/configs/queryParams';
 import axios, { AxiosResponse } from 'axios';
 import { action, computed, IReactionDisposer, makeObservable, observable, reaction, runInAction } from 'mobx';
 
 import rootStore from '../RootStore';
-import { normalizeProducts } from '../shared/normalize';
 import PaginationModel from './models/PaginationModel';
 
 type PrivateField = '_products' | '_categories' | '_meta' | '_search' | '_filter' | '_totalProducts' 
 
 class ProductsStore {
   readonly paginationModel = new PaginationModel();
-  private _products: IProduct[] = [];
-  private _categories: ICategory[] = [];
+  private _products: ProductModel[] = [];
+  private _categories: CategoryModel[] = [];
   private _meta: Meta = Meta.initial;
   private _search: string = '';
-  private _filter: IOption[] = [];
+  private _filter: OptionModel[] = [];
   private _limit: number = 9;
   private _totalProducts: number = 0;
 
@@ -66,11 +66,11 @@ class ProductsStore {
     );
   }
 
-  get products(): IProduct[] {
+  get products(): ProductModel[] {
     return this._products;
   }
   
-  get categories(): ICategory[] {
+  get categories(): CategoryModel[] {
     return this._categories;
   }
 
@@ -86,7 +86,7 @@ class ProductsStore {
     return this._search;
   }
 
-  get filter(): IOption[] {
+  get filter(): OptionModel[] {
     return this._filter;
   }
 
@@ -102,7 +102,7 @@ class ProductsStore {
     this._search = value;
   }
 
-  setFilter(values: IOption[]): void {
+  setFilter(values: OptionModel[]): void {
     this._filter = values;
   }
 

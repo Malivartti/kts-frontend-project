@@ -8,7 +8,7 @@
   background: var(--input-bg-color);
 
   &::placeholder {
-    color: var(--secodnary-color);
+    color: var(--secondary-color);
   }
 
   &:focus {
@@ -23,11 +23,19 @@
   &__icon {
     position: absolute;
     right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 14px;
   }
 
   &_icon {
     padding-right: 50px;
+  }
+
+  &_error {
+    border: 1px solid var(--error-color);
+  }
+
+  &__error {
+    margin-top: 8px;
+    color: var(--error-color);
   }
 }

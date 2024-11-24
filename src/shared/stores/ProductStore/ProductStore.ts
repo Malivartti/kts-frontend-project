@@ -1,15 +1,14 @@
 import { Meta } from '@entities/Meta';
-import { IProduct } from '@entities/Product';
+import { normalizeProuct, ProductModel } from '@entities/Product';
 import { endpoints } from '@shared/configs/api';
 import axios, { AxiosResponse } from 'axios';
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
 
-import { normalizeProuct } from '../shared/normalize';
 
 type PrivateField = '_data' | '_meta'
 
 class ProductStore {
-  private _data: IProduct = {} as IProduct;
+  private _data: ProductModel | null = null;
   private _meta: Meta = Meta.initial;
 
   constructor() {
@@ -23,7 +22,7 @@ class ProductStore {
     });
   }
 
-  get data(): IProduct {
+  get data(): ProductModel {
     return this._data;
   }
 
@@ -41,7 +40,7 @@ class ProductStore {
 
   async getProduct(productId: string = ''): Promise<void> {
     this._meta = Meta.loading;
-    this._data = {} as IProduct;
+    this._data = null;
 
     const url = endpoints.product.getProduct(productId);
     try {

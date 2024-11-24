@@ -4,7 +4,9 @@ import { randomNumber } from '@shared/lib/random';
 import axios, { AxiosResponse } from 'axios';
 import classNames from 'classnames';
 import { FC, ReactNode, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import cls from './RandomProductLink.module.scss';
 
@@ -15,6 +17,7 @@ type RandomProductLinkProps = {
 
 const RandomProductLink: FC<RandomProductLinkProps> = ({ className, children }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const randomProductSelection = useCallback(async () => {
     const url = endpoints.products.getProducts();
@@ -31,10 +34,15 @@ const RandomProductLink: FC<RandomProductLinkProps> = ({ className, children }) 
         navigate(AppRouteUrls.product.create(randomProduct.id));
       }
     } catch (e) {
+      toast(t('Не удалось получить случайный продукт'), {
+        position: 'top-center',
+        type: 'error',
+        className: cls.RandomProductLink__toast,
+      });
       console.log(e);
       navigate(AppRouteUrls.products.create());
     }
-  }, [navigate]);
+  }, [navigate, t]);
 
   return (
     <div onClick={randomProductSelection} className={classNames(cls.RandomProductLink, className)}>

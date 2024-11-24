@@ -1,0 +1,25 @@
+.Popup {
+  position: relative;
+
+  &__list {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    padding: 5px 0;
+    transform: translateX(-50%);
+    background-color: var(--skeleton-base-color);
+    width: 100px;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
+
+    & > * {
+      display: block;
+      text-align: center;
+      padding: 5px 0;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--skeleton-highlight-color);
+      }
+    }
+  }
+}

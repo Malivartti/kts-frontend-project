@@ -1,0 +1,15 @@
+.SignIn {
+  &__link {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__icon {
+    margin-right: 10px;
+  }
+
+  &__btn {
+    width: 100%;
+  }
+}

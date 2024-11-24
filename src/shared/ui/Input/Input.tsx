@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { useCallback } from 'react';
 
+import Text from '../Text';
 import cls from './Input.module.scss';
 
 export type InputProps = Omit<
@@ -11,13 +12,15 @@ export type InputProps = Omit<
   onChange: (value: string) => void;
   afterSlot?: React.ReactNode;
   className?: string;
+  error?: string;
 };
 
 const Input: React.FC<InputProps> = ({
   afterSlot,
   className,
-  value, 
-  onChange, 
+  value,
+  onChange,
+  error,
   ...props
 }) => {
   const [innerValue, setInnerValue ] = React.useState<string>();
@@ -30,13 +33,14 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className={classNames(cls.Input__wrapper, className)}>
       <input
-        className={classNames(cls.Input, { [cls.Input_icon]: afterSlot })}
+        className={classNames(cls.Input, { [cls.Input_icon]: afterSlot, [cls.Input_error]: error })}
         type="text"
         value={innerValue || value}
         onChange={onChangeValue}
         {...props}
       />
       <span className={cls.Input__icon}>{afterSlot}</span>
+      <Text tag='div' view='p-14' className={cls.Input__error}>{error}</Text>
     </div>
   );};
 

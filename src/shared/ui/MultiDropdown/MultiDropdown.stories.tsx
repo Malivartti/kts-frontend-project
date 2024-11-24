@@ -1,5 +1,5 @@
 import { Theme } from '@app/providers/ThemeProvider';
-import { IOption } from '@entities/MultiDropdown';
+import { OptionModel } from '@entities/Option';
 import { ThemeDecorator } from '@shared/configs/storybook/ThemeDecorator';
 import { Meta } from '@storybook/react';
 import React from 'react';
@@ -13,7 +13,7 @@ const OPTIONS = [
 ];
 
 const Component = (props: MultiDropdownProps) => {
-  const [value, setValue] = React.useState<IOption[]>(Array.isArray(props.value) ? props.value : []);
+  const [value, setValue] = React.useState<OptionModel[]>(Array.isArray(props.value) ? props.value : []);
 
   return (
     <MultiDropdown
@@ -22,7 +22,7 @@ const Component = (props: MultiDropdownProps) => {
       options={OPTIONS}
       onChange={setValue}
       value={value}
-      getTitle={(values: IOption[]) => values.length === 0 ? 'Выберите города': values.map(({ value }) => value).join(', ')}
+      getTitle={(values: OptionModel[]) => values.length === 0 ? 'Выберите города': values.map(({ value }) => value).join(', ')}
     />
   );
 };

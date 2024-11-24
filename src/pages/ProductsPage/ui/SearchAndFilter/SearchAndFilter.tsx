@@ -1,5 +1,5 @@
-import { IOption } from '@entities/MultiDropdown';
-import { ICategory } from '@entities/Product';
+import { CategoryModel } from '@entities/Category';
+import { OptionModel } from '@entities/Option';
 import Button from '@shared/ui/Button';
 import Input from '@shared/ui/Input';
 import MultiDropdown from '@shared/ui/MultiDropdown';
@@ -19,14 +19,14 @@ const SearchAndFilter: FC<SearchAndFilterProps> = ({ className }) => {
   const productsStore = useProductsStore();
   const { t } = useTranslation('products');
 
-  const formatCategoryes = useCallback((categories: ICategory[]): IOption[] => {
+  const formatCategoryes = useCallback((categories: CategoryModel[]): OptionModel[] => {
     return categories.map((category) => ({
       key: String(category.id),
       value: category.name,
     }));
   }, []);
   
-  const getTitle = useCallback((value: IOption[]) => {
+  const getTitle = useCallback((value: OptionModel[]) => {
     return value.map((option) => option.value).join(',');
   }, []);
 
@@ -34,7 +34,7 @@ const SearchAndFilter: FC<SearchAndFilterProps> = ({ className }) => {
     productsStore.setSearch(search);
   }, [productsStore]);
 
-  const changeFilter = useCallback((options: IOption[]) => {
+  const changeFilter = useCallback((options: OptionModel[]) => {
     productsStore.setFilter(options);
   }, [productsStore]);
 

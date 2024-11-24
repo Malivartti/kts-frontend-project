@@ -1,4 +1,4 @@
-import { IOption } from '@entities/MultiDropdown';
+import { OptionModel } from '@entities/Option';
 import ArrowDownIcon from '@shared/ui/icons/ArrowDownIcon';
 import Input from '@shared/ui/Input';
 import Text from '@shared/ui/Text';
@@ -9,11 +9,11 @@ import cls from './MultiDropdown.module.scss';
 
 export type MultiDropdownProps = {
   className?: string;
-  options: IOption[];
-  value: IOption[];
-  onChange: (value: IOption[]) => void;
+  options: OptionModel[];
+  value: OptionModel[];
+  onChange: (value: OptionModel[]) => void;
   disabled?: boolean;
-  getTitle: (value: IOption[]) => string;
+  getTitle: (value: OptionModel[]) => string;
   multi?: boolean;
   placeholder?: string;
 };
@@ -46,7 +46,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   }, []);
 
 
-  const handleOptionChange = (option: IOption) => {
+  const handleOptionChange = (option: OptionModel) => {
     if (!value.find(item => item.key === option.key)) {
       if (!multi) {
         onChange([option]);
