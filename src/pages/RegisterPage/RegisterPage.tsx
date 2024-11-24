@@ -32,7 +32,6 @@ const RegisterPage = () => {
     const reactionDisposer = reaction(
       () => ({ isError: rootStore.user.isError, isSuccess: rootStore.user.isSuccess }),
       ({ isError, isSuccess }) => {
-        console.log('reactionDisposer', isError, isSuccess);
         if (isError) {
           toast(t(rootStore.user.error), {
             position: 'top-center',

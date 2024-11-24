@@ -18,7 +18,7 @@ type ProductsListProps = {
 const ProductsList: FC<ProductsListProps> = ({ className }) => {
   const productsStore = useProductsStore();
   const { t } = useTranslation('products');
-  const listRef = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLDivElement>(null);
 
   const handleClick = useCallback((e: MouseEvent<HTMLElement>, productId: number) => {
     e.preventDefault();
