@@ -4,7 +4,7 @@ import Card from '@shared/ui/Card';
 import Loader from '@shared/ui/Loader';
 import Text from '@shared/ui/Text';
 import { observer } from 'mobx-react-lite';
-import { FC, MouseEvent, useCallback } from 'react';
+import { FC, MouseEvent, useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -18,14 +18,21 @@ type ProductsListProps = {
 const ProductsList: FC<ProductsListProps> = ({ className }) => {
   const productsStore = useProductsStore();
   const { t } = useTranslation('products');
+  const listRef = useRef<HTMLDivElement>(null)
 
   const handleClick = useCallback((e: MouseEvent<HTMLElement>, productId: number) => {
     e.preventDefault();
   }, []);
 
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollIntoView();
+    }
+  }, [productsStore.products]);
+
   return (
     <div className={className}>
-      <div className={cls.ProductsList__count}>
+      <div className={cls.ProductsList__count} ref={listRef}>
         <Text view='p-32' tag='h2' className={cls.ProductsList__title}>{t('Всего продуктов')}</Text>
         {
           (productsStore.isLoading)
