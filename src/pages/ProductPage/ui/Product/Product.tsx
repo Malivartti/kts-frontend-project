@@ -3,6 +3,7 @@ import { AppRouteUrls } from '@shared/configs/router';
 import ProductStore from '@shared/stores/ProductStore';
 import Button, { ButtonTheme } from '@shared/ui/Button';
 import Text from '@shared/ui/Text';
+import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { FC, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,15 +21,14 @@ const Product: FC<ProductProps> = ({ productStore }) => {
   const navigate = useNavigate();
   const { t } = useTranslation('product');
 
-  const checkImage = useCallback((images: string[]): string => {
-    return !images.length ? imgPlaceholder : images[0];
-  }, []);
-
-  useEffect(() => {
-    if (productStore.isError) {
-      navigate(AppRouteUrls.products.create());
+  reaction(
+    () => productStore.isError,
+    (isError) => {
+      if (isError) {
+        navigate(AppRouteUrls.products.create());
+      }
     }
-  }, [productStore.isError, navigate]);
+  );
 
   if (productStore.isError) {
     return null;
