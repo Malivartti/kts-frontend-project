@@ -1,5 +1,5 @@
 import { Meta } from '@entities/Meta';
-import { normalizationUser, UserApi, UserCheckEmailReqApi, UserCheckEmailResApi, UserCreateReqApi, UserLoginReqApi, UserLoginResApi, UserModel } from '@entities/User';
+import { normalizationUser, UserApi, UserCheckEmailReqApi, UserCheckEmailResApi, UserCreateReqApi, UserLoginReqApi, UserLoginResApi, UserModel, UserUpdateReqApi } from '@entities/User';
 import { endpoints } from '@shared/configs/api';
 import axios, { AxiosResponse } from 'axios';
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
@@ -40,6 +40,7 @@ class UserStore {
       setIsLogin: action,
       setUser: action,
       resetError: action,
+      updateUser: action,
     });
   }
 
@@ -246,6 +247,32 @@ class UserStore {
     await this.createUser(avatar, name, email, password);
     if (!this.isError) {
       await this.loginUser(email, password);
+    }
+  }
+
+  async updateUser(newName: string): Promise<void> {
+    const url = endpoints.user.update(String(this._user.id));
+    const data: UserUpdateReqApi = {
+      email: this._user.email,
+      name: newName,
+    };
+
+    try {
+      const res: AxiosResponse<UserApi> = await axios({
+        method: 'post',
+        url,
+        data,
+      });
+      runInAction(() => {
+        this._user = normalizationUser(res.data);
+        this._meta = Meta.success;
+      });
+    } catch(e) {
+      runInAction(() => {
+        this._error = 'Не удалось изменить данные пользователя';
+        this._meta = Meta.error;
+      });
+      console.log(e);
     }
   }
 }

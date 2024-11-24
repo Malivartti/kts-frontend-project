@@ -1,0 +1,43 @@
+.ProfilePage {
+  padding-top: 100px;
+  padding-bottom: 50px;
+
+  &__container {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  &__avatar {
+    display: inline-block;
+    max-width: 50%;
+    padding-bottom: 50%;
+    background-color: var(--skeleton-base-color);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: translateX(50%);
+    margin-bottom: 30px;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  &__btn {
+    align-self: center;
+    margin-top: 30px;
+  }
+
+  &__toast {
+    top: var(--toast-top);
+  }
+}

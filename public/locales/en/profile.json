@@ -1,0 +1,11 @@
+{
+  "Профиль": "Profile",
+  "Имя": "Name",
+  "Новое имя": "New name",
+  "Почта": "Email",
+  "Изменить": "Change",
+  "Введите новое имя": "Enter new name",
+  "Сохранить": "Save",
+  "Сохранено успешно": "Save successfully",
+  "Не удалось изменить данные пользователя": "Failed to change user data"
+}

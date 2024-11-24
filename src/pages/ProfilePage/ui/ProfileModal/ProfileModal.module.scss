@@ -1,0 +1,14 @@
+.ProfileModal {
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__input {
+    margin-bottom: 15px;
+  }
+
+  &__btn {
+    align-self: center;
+  }
+}
