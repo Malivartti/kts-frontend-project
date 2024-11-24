@@ -40,7 +40,7 @@ const Input: React.FC<InputProps> = ({
         {...props}
       />
       <span className={cls.Input__icon}>{afterSlot}</span>
-      <Text tag='div' view='p-14' className={cls.Input__error}>{error}</Text>
+      {error && <Text tag='div' view='p-14' className={cls.Input__error}>{error}</Text>}
     </div>
   );};
 
