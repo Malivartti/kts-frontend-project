@@ -1,9 +1,12 @@
 import { useProductsStore } from '@app/providers/ProductsStoreContextProvider';
+import { ProductModel } from '@entities/Product';
 import { AppRouteUrls } from '@shared/configs/router';
+import rootStore from '@shared/stores/RootStore';
 import Button from '@shared/ui/Button';
 import Card from '@shared/ui/Card';
 import Loader from '@shared/ui/Loader';
 import Text from '@shared/ui/Text';
+import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { FC, MouseEvent, useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,15 +23,32 @@ const ProductsList: FC<ProductsListProps> = ({ className }) => {
   const { t } = useTranslation('products');
   const listRef = useRef<HTMLDivElement>(null);
 
-  const handleClick = useCallback((e: MouseEvent<HTMLElement>, productId: number) => {
+  const handleClick = useCallback((e: MouseEvent<HTMLElement>, product: ProductModel) => {
     e.preventDefault();
+    rootStore.bug.addToBug(product);
   }, []);
 
   useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollIntoView();
-    }
-  }, [productsStore.products]);
+    const reactionDisposer = reaction(
+      () => ({
+        currentPage: productsStore.paginationModel.currentPage,
+        products: productsStore.products,
+      }),
+      ({ currentPage }) => {
+        if (currentPage === 1) {
+          window.scrollTo(0, 0);
+          return;
+        }
+    
+        if (listRef.current) {
+          listRef.current.scrollIntoView();
+        }
+      }
+    );
+    return () => {
+      reactionDisposer();
+    };
+  });
 
   return (
     <div className={className}>
@@ -43,11 +63,9 @@ const ProductsList: FC<ProductsListProps> = ({ className }) => {
       <div className={cls.ProductsList__list}>
         {
           productsStore.isLoading && (
-            <>
-              <Card isLoading image='' title='' subtitle='' />
-              <Card isLoading image='' title='' subtitle='' />
-              <Card isLoading image='' title='' subtitle='' />
-            </>
+            Array.from(Array(productsStore.limit).keys()).map(key => (
+              <Card key={key} isLoading image='' title='' subtitle='' />
+            ))
           )
         }
         {
@@ -64,7 +82,7 @@ const ProductsList: FC<ProductsListProps> = ({ className }) => {
                     title={product.title}
                     subtitle={product.description}
                     contentSlot={`$${product.price}`}
-                    actionSlot={<Button onClick={(e) => handleClick(e, product.id)}>{t('В корзину')}</Button>}
+                    actionSlot={<Button onClick={(e) => handleClick(e, product)}>{t('В корзину')}</Button>}
                   />
                 </Link>
               ))

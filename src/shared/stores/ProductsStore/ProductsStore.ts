@@ -36,6 +36,7 @@ class ProductsStore {
       isNoProducts: computed,
       search: computed,
       filter: computed,
+      limit: computed,
       totalProducts: computed,
       isLoading: computed,
       getGeneralUrlParams: computed,
@@ -89,6 +90,10 @@ class ProductsStore {
 
   get filter(): OptionModel[] {
     return this._filter;
+  }
+
+  get limit(): number {
+    return this._limit;
   }
 
   get totalProducts(): number {
@@ -171,7 +176,7 @@ class ProductsStore {
       runInAction(() => {
         this._meta = Meta.error;
         this.paginationModel.setIsLoading(false);
-      })
+      });
       console.log(e);
     }
   }

@@ -1,10 +1,11 @@
 import { AppRouteUrls } from '@shared/configs/router';
 import ProductStore from '@shared/stores/ProductStore';
+import rootStore from '@shared/stores/RootStore';
 import Button, { ButtonTheme } from '@shared/ui/Button';
 import Text from '@shared/ui/Text';
 import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -29,6 +30,10 @@ const Product: FC<ProductProps> = ({ productStore }) => {
     }
   );
 
+  const toBug = useCallback(() => {
+    rootStore.bug.addToBug(product);
+  }, [product]);
+
   if (productStore.isError) {
     return null;
   }
@@ -42,7 +47,11 @@ const Product: FC<ProductProps> = ({ productStore }) => {
         <Text view='title' className={cls.Product__price}>{`$${product.price}`}</Text>
         <div className={cls.Product__buttons}>
           <Button className={cls.Product__button}>{t('Купить')}</Button>
-          <Button theme={ButtonTheme.OUTLINE} className={cls.Product__button}>{t('В корзину')}</Button>
+          <Button
+            theme={ButtonTheme.OUTLINE}
+            className={cls.Product__button}
+            onClick={toBug}
+          >{t('В корзину')}</Button>
         </div>
       </div>
     </div>
