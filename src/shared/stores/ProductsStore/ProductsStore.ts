@@ -1,7 +1,7 @@
-import { CategoryModel } from '@entities/Category';
+import { CategoryApi, CategoryModel, normalizeCategories } from '@entities/Category';
 import { Meta } from '@entities/Meta';
 import { OptionModel } from '@entities/Option';
-import { normalizeProducts, ProductModel } from '@entities/Product';
+import { normalizeProducts, ProductApi, ProductModel } from '@entities/Product';
 import { endpoints } from '@shared/configs/api';
 import { ProductsSearchParams } from '@shared/configs/queryParams';
 import axios, { AxiosResponse } from 'axios';
@@ -47,6 +47,7 @@ class ProductsStore {
       getProductsByFirst: action.bound,
       getCategoryes: action.bound,
       getDataOfQueryParams: action,
+      getAllProducts: action,
     });
 
   
@@ -120,9 +121,9 @@ class ProductsStore {
   }
 
   async getTotalProducts(): Promise<void> {
-    const url = endpoints.products.getProducts();
+    const url = endpoints.products.get();
     const params = this.getGeneralUrlParams;
-    const resCount: AxiosResponse = await axios({
+    const resCount: AxiosResponse<ProductApi[]> = await axios({
       method: 'get',
       url,
       params,
@@ -136,12 +137,12 @@ class ProductsStore {
 
 
   async getPageProducts(): Promise<void> {
-    const url = endpoints.products.getProducts();
+    const url = endpoints.products.get();
     const params = this.getGeneralUrlParams;
     params.set('offset', String((this.paginationModel.currentPage - 1) * this._limit));
     params.set('limit', String(this._limit));
 
-    const resData: AxiosResponse = await axios({
+    const resData: AxiosResponse<ProductApi[]> = await axios({
       method: 'get',
       url,
       params,
@@ -167,8 +168,10 @@ class ProductsStore {
         this.paginationModel.setIsLoading(false);
       });
     } catch(e) {
-      this._meta = Meta.error;
-      this.paginationModel.setIsLoading(false);
+      runInAction(() => {
+        this._meta = Meta.error;
+        this.paginationModel.setIsLoading(false);
+      })
       console.log(e);
     }
   }
@@ -183,16 +186,39 @@ class ProductsStore {
     this._categories = [];
 
     try {
-      const res: AxiosResponse = await axios({
+      const res: AxiosResponse<CategoryApi[]> = await axios({
         method: 'get',
         url,
       });
       runInAction(() => {
-        this._categories = res.data;
+        this._categories = normalizeCategories(res.data);
       });
     } catch(e) {
       alert(e);
     } 
+  }
+
+  async getAllProducts(): Promise<void> {
+    const url = endpoints.products.get();
+    this._products = [];
+    this._meta = Meta.loading;
+
+    try {
+      const res: AxiosResponse<ProductApi[]> = await axios({
+        method: 'get',
+        url,
+      });
+      
+      runInAction(() => {
+        this._products = normalizeProducts(res.data);
+        this._meta = Meta.success;
+      });
+    } catch(e) {
+      runInAction(() => {
+        this._meta = Meta.error;
+      });
+      console.log(e);
+    }
   }
 
   getDataOfQueryParams() {

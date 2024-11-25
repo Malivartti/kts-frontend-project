@@ -20,7 +20,7 @@ const RandomProductLink: FC<RandomProductLinkProps> = ({ className, children }) 
   const { t } = useTranslation();
 
   const randomProductSelection = useCallback(async () => {
-    const url = endpoints.products.getProducts();
+    const url = endpoints.products.get();
 
     try {
       const res: AxiosResponse = await axios({

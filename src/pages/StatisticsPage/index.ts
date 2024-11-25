@@ -1,1 +1,1 @@
-export { default } from './StatisticsPage.lazy';
+export { default } from './ui/StatisticsPage.lazy';

@@ -1,3 +1,4 @@
+import { ProductsStoreContextProvider } from '@app/providers/ProductsStoreContextProvider';
 import { Role } from '@entities/User';
 import AboutUsPage from '@pages/AboutUsPage';
 import DashboardPage from '@pages/DashboardPage/DashboardPage';
@@ -5,10 +6,9 @@ import LoginPage from '@pages/LoginPage';
 import NotFoundPage from '@pages/NotFoundPage';
 import ProductPage from '@pages/ProductPage';
 import ProductsPage from '@pages/ProductsPage';
-import { ProductsStoreContextProvider } from '@pages/ProductsPage/context';
 import ProfilePage from '@pages/ProfilePage';
 import RegisterPage from '@pages/RegisterPage';
-import StatisticsPage from '@pages/StatisticsPage/StatisticsPage';
+import StatisticsPage from '@pages/StatisticsPage/ui/StatisticsPage';
 import rootStore from '@shared/stores/RootStore';
 import { Navigate, RouteProps } from 'react-router-dom';
 
@@ -43,9 +43,11 @@ export const AppRoutePages: TAppRoutePages[] = [
   },
   {
     path: AppRoutes.PRODUCTS,
-    element: (<ProductsStoreContextProvider>
-      <ProductsPage />
-    </ProductsStoreContextProvider>),
+    element: (
+      <ProductsStoreContextProvider>
+        <ProductsPage />
+      </ProductsStoreContextProvider>
+    ),
     roles: [Role.guest, Role.customer],
   },
   {
@@ -75,12 +77,20 @@ export const AppRoutePages: TAppRoutePages[] = [
   },
   {
     path: AppRoutes.STATISTICS,
-    element: <StatisticsPage />,
+    element: (
+      <ProductsStoreContextProvider>
+        <StatisticsPage />
+      </ProductsStoreContextProvider>
+    ),
     roles: [Role.admin],
   },
   {
     path: AppRoutes.DASHBOARD,
-    element: <DashboardPage />,
+    element: (
+      <ProductsStoreContextProvider>
+        <DashboardPage />
+      </ProductsStoreContextProvider>
+    ),
     roles: [Role.admin],
   },
   {

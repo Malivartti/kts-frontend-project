@@ -1,3 +1,4 @@
+import { useProductsStore } from '@app/providers/ProductsStoreContextProvider';
 import { AppRouteUrls } from '@shared/configs/router';
 import Button from '@shared/ui/Button';
 import Card from '@shared/ui/Card';
@@ -8,7 +9,6 @@ import { FC, MouseEvent, useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { useProductsStore } from '../../context';
 import cls from './ProductsList.module.scss';
 
 type ProductsListProps = {

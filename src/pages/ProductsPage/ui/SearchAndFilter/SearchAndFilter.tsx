@@ -1,3 +1,4 @@
+import { useProductsStore } from '@app/providers/ProductsStoreContextProvider';
 import { CategoryModel } from '@entities/Category';
 import { OptionModel } from '@entities/Option';
 import Button from '@shared/ui/Button';
@@ -8,7 +9,6 @@ import { observer } from 'mobx-react-lite';
 import { FC, FormEvent, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useProductsStore } from '../../context';
 import cls from './SearchAndFilter.module.scss';
 
 type SearchAndFilterProps = {

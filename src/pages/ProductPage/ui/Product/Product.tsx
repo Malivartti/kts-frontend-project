@@ -1,11 +1,10 @@
-import imgPlaceholder from '@shared/assets/images/imagePlaceholder.png';
 import { AppRouteUrls } from '@shared/configs/router';
 import ProductStore from '@shared/stores/ProductStore';
 import Button, { ButtonTheme } from '@shared/ui/Button';
 import Text from '@shared/ui/Text';
 import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { FC, useCallback, useEffect } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
