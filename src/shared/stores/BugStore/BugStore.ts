@@ -19,13 +19,6 @@ class BugStore {
       increaseProductCount: action.bound,
       decreaseProductCount: action.bound,
     });
-
-    reaction(
-      () => this._bug,
-      bug => {
-        console.log(toJS(bug));
-      }
-    );
   }
 
   get bug(): BugProductModel[] {
