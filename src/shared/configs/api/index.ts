@@ -4,6 +4,9 @@ export const API_ENTRY_POINT = 'https://api.escuelajs.co/api/v1';
 export const endpoints = {
   products: {
     get: (): string => `${API_ENTRY_POINT}/products`,
+    create: () => `${API_ENTRY_POINT}/products`,
+    update: (id: string | number) => `${API_ENTRY_POINT}/products/${id}`,
+    delete: (id: string | number) => `${API_ENTRY_POINT}/products/${id}`,
   },
   product: {
     getProduct: (id: string | number): string => `${API_ENTRY_POINT}/products/${id}`,

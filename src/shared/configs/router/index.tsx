@@ -1,7 +1,7 @@
 
 import { Role } from '@entities/User';
 import AboutUsPage from '@pages/AboutUsPage';
-import DashboardPage from '@pages/DashboardPage/DashboardPage';
+import DashboardPage from '@pages/DashboardPage';
 import LoginPage from '@pages/LoginPage';
 import NotFoundPage from '@pages/NotFoundPage';
 import OrderPage from '@pages/OrderPage/ui/OrderPage';
@@ -10,6 +10,7 @@ import ProductsPage from '@pages/ProductsPage';
 import ProfilePage from '@pages/ProfilePage';
 import RegisterPage from '@pages/RegisterPage';
 import StatisticsPage from '@pages/StatisticsPage/ui/StatisticsPage';
+import { DashboardStoreContextProvider } from '@shared/stores/DashboardStore';
 import { OrderStoreContextProvider } from '@shared/stores/OrderStore';
 import { ProductsStoreContextProvider } from '@shared/stores/ProductsStore';
 import rootStore from '@shared/stores/RootStore';
@@ -100,9 +101,9 @@ export const AppRoutePages: TAppRoutePages[] = [
   {
     path: AppRoutes.DASHBOARD,
     element: (
-      <ProductsStoreContextProvider>
+      <DashboardStoreContextProvider>
         <DashboardPage />
-      </ProductsStoreContextProvider>
+      </DashboardStoreContextProvider>
     ),
     roles: [Role.admin],
   },

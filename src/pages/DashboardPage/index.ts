@@ -1,1 +1,2 @@
-export { default } from './DashboardPage.lazy';
+export { default } from './ui/DashboardPage.lazy';
+

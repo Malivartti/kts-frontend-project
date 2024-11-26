@@ -1,0 +1,16 @@
+.ProductsTableRowSkeleton {
+  height: 46px;
+
+  &__id {
+    width: 60%;
+    transform: translateX(-5px);
+  }
+
+  &_center {
+    text-align: center;
+  }
+
+  &__common {
+    width: 70%;
+  }
+}

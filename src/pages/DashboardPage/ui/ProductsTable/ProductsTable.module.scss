@@ -1,0 +1,38 @@
+.ProductsTable {
+  padding-top: 100px;
+  padding-bottom: 50px;
+
+  &__top {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &__id {
+    width: 5%;
+    text-align: start;
+  }
+
+  &__title {
+    width: 50%;
+    text-align: start;
+  }
+
+  &__category {
+    width: 15%;
+    text-align: start;
+  }
+
+  &__price {
+    width: 10%;
+  }
+
+  &__btn {
+    width: 10%;
+  }
+}

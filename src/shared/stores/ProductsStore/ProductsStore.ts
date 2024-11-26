@@ -10,13 +10,15 @@ import { action, computed, IReactionDisposer, makeObservable, observable, reacti
 import rootStore from '../RootStore';
 import PaginationModel from './models/PaginationModel';
 
-type PrivateField = '_products' | '_categories' | '_meta' | '_search' | '_filter' | '_totalProducts' 
+type PrivateField = '_products' | '_categories' | '_meta' | '_error' | '_search' 
+| '_filter' | '_totalProducts'
 
 class ProductsStore {
   readonly paginationModel = new PaginationModel();
   private _products: ProductModel[] = [];
   private _categories: CategoryModel[] = [];
   private _meta: Meta = Meta.initial;
+  private _error: string = '';
   private _search: string = '';
   private _filter: OptionModel[] = [];
   private _limit: number = 9;
@@ -27,12 +29,14 @@ class ProductsStore {
       _products: observable.ref,
       _categories: observable.ref,
       _meta: observable,
+      _error: observable,
       _search: observable,
       _filter: observable.ref,
       _totalProducts: observable,
       products: computed,
       categories: computed,
       meta: computed,
+      error: computed,
       isNoProducts: computed,
       search: computed,
       filter: computed,
@@ -42,6 +46,7 @@ class ProductsStore {
       getGeneralUrlParams: computed,
       setSearch: action.bound,
       setFilter: action.bound,
+      setLimit: action.bound,
       getTotalProducts: action,
       getPageProducts: action,
       getProducts: action.bound,
@@ -79,6 +84,10 @@ class ProductsStore {
     return this._meta;
   }
 
+  get error(): string {
+    return this._error;
+  }
+
   get isNoProducts(): boolean {
     return !this._products.length && this._meta === Meta.success;
   }
@@ -111,6 +120,10 @@ class ProductsStore {
     this._filter = values;
   }
 
+  setLimit(limit: number): void {
+    this._limit = limit;
+  }
+
   get getGeneralUrlParams(): URLSearchParams {
     const search = String(rootStore.query.getParam(ProductsSearchParams.search) || '');
     const filter = String(rootStore.query.getParam(ProductsSearchParams.filter) || '');
@@ -140,21 +153,19 @@ class ProductsStore {
   }
 
 
-  async getPageProducts(): Promise<void> {
+  async getPageProducts(): Promise<ProductApi[]> {
     const url = endpoints.products.get();
     const params = this.getGeneralUrlParams;
     params.set('offset', String((this.paginationModel.currentPage - 1) * this._limit));
     params.set('limit', String(this._limit));
 
-    const resData: AxiosResponse<ProductApi[]> = await axios({
+    const res: AxiosResponse<ProductApi[]> = await axios({
       method: 'get',
       url,
       params,
     });
 
-    runInAction(() => {
-      this._products = normalizeProducts(resData.data);
-    });
+    return res.data;
   }
 
   async getProducts(): Promise<void> {
@@ -166,8 +177,9 @@ class ProductsStore {
       if (this.paginationModel.totalPages === 0 || this.paginationModel.currentPage === 1) {
         await this.getTotalProducts();
       }
-      await this.getPageProducts();
+      const res = await this.getPageProducts();
       runInAction(() => {
+        this._products = normalizeProducts(res);
         this._meta = Meta.success;
         this.paginationModel.setIsLoading(false);
       });
