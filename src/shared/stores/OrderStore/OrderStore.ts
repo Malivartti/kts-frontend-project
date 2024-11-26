@@ -1,10 +1,10 @@
 import { Meta } from '@entities/Meta';
 import { action, computed, makeObservable, observable } from 'mobx';
 
+import rootStore from '../RootStore';
 import DeliveryStepModel from './models/DeliveryStepModel';
 import OrderStepModel from './models/OrderStepModel';
 import PaymentStepModel from './models/PaymentStepModel';
-import rootStore from '../RootStore';
 
 enum orderPage {
   order = 'order',
