@@ -1,4 +1,5 @@
-import { useProductsStore } from '@app/providers/ProductsStoreContextProvider';
+
+import { useProductsStore } from '@shared/stores/ProductsStore';
 import { useEffect } from 'react';
 
 import CategoryAndProductsChart from './CategoryAndProductsChart';

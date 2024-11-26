@@ -51,7 +51,6 @@ class ProductsStore {
       getAllProducts: action,
     });
 
-  
     reaction(
       () => this._search,
       search => {

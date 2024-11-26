@@ -1,0 +1,12 @@
+.ProgressBar {
+  height: 5px;
+  width: 100%;
+  background-color: var(--tertiary-color);
+
+
+  &__progress {
+    background-color: var(--brand-color);
+    height: 5px;
+    transition: width .3s linear;
+  }
+}

@@ -3,7 +3,7 @@ import { action, computed, makeObservable, observable } from 'mobx';
 
 import rootStore from '../RootStore';
 
-type PrivateField ='_email' | '_emailError' | '_password' | '_passwordError'
+type PrivateField = '_email' | '_emailError' | '_password' | '_passwordError'
 
 class LoginStore {
   private _email: string = '';

@@ -1,4 +1,5 @@
-import { useProductsStore } from '@app/providers/ProductsStoreContextProvider';
+
+import { useProductsStore } from '@shared/stores/ProductsStore';
 import rootStore from '@shared/stores/RootStore';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';

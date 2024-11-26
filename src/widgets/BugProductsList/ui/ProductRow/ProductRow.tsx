@@ -1,19 +1,24 @@
-import { ProductModel } from '@entities/Product';
+import { BugProductModel } from '@entities/BugProduct';
 import rootStore from '@shared/stores/RootStore';
 import TrashIcon from '@shared/ui/icons/TrashIcon';
 import Text from '@shared/ui/Text';
 import Counter from '@widgets/Counter';
+import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import { FC, MouseEvent, useCallback } from 'react';
 
 import cls from './ProductRow.module.scss';
 type ProductRowProps = {
-  product: ProductModel;
+  product: BugProductModel;
+  isUnavailable?: boolean;
+  isActions?: boolean
 }
 
-const ProductRow: FC<ProductRowProps> = ({ product }) => {
-  const count = rootStore.bug.bug.find(item => item.id === product.id).count;
-
+const ProductRow: FC<ProductRowProps> = ({ 
+  product,
+  isUnavailable,
+  isActions = true,
+}) => {
   const increase = useCallback(() => {
     rootStore.bug.increaseProductCount(product);
   }, [product]);
@@ -28,7 +33,7 @@ const ProductRow: FC<ProductRowProps> = ({ product }) => {
   }, [product]);
 
   return (
-    <div className={cls.ProductRow}>
+    <div className={classNames(cls.ProductRow, { [cls.ProductRow_unavailable]: isUnavailable })}>
       <div className={cls.ProductRow__content}>
         <div
           className={cls.ProductRow__img}
@@ -39,16 +44,23 @@ const ProductRow: FC<ProductRowProps> = ({ product }) => {
           <Text tag='div' view='p-18' weight='bold'>{`$${product.price}`}</Text>
         </div>
       </div>
-      <div className={cls.ProductRow__actions}>
-        <Counter 
-          count={count} 
-          increase={increase}
-          decrease={decrease}
-        />
-        <button className={cls.ProductRow__btn} onClick={remove} >
-          <TrashIcon className={cls.ProductRow__icon} />
-        </button>
-      </div>
+      {isActions
+        ? (
+          <div className={cls.ProductRow__actions}>
+            <Counter 
+              count={product.count} 
+              increase={increase}
+              decrease={decrease}
+            />
+            <button className={cls.ProductRow__btn} onClick={remove} >
+              <TrashIcon className={cls.ProductRow__icon} />
+            </button>
+          </div>
+        )
+        : (
+          <Text tag='div' view='p-18'>{product.count}</Text>
+        )
+      }
     </div>
   );
 };

@@ -11,9 +11,16 @@
     float: right;
     padding: 32px;
     background-color: var(--neutral-color);
+    display: flex;
+    flex-direction: column;
   }
 
   &__title {
     margin-bottom: 30px;
+  }
+
+  &__btn {
+    margin-top: 30px;
+    align-self: center;
   }
 }

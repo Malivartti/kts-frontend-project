@@ -1,6 +1,6 @@
 import { BugProductModel } from '@entities/BugProduct';
 import { ProductModel } from '@entities/Product';
-import { action, computed, makeObservable, observable, reaction, toJS } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 
 type PrivateField = '_bug';
 
@@ -13,6 +13,7 @@ class BugStore {
       _bug: observable,
       bug: computed,
       bugCount: computed,
+      totalSum: computed,
       setBug: action,
       addToBug: action.bound,
       removeFromBug: action.bound,
@@ -27,6 +28,10 @@ class BugStore {
 
   get bugCount(): number {
     return this._bug.reduce((acc, curr) => acc + curr.count, 0);
+  }
+
+  get totalSum(): number {
+    return this._bug.reduce((acc, cur) => acc + (cur.price * cur.count), 0);
   }
 
   setBug(bugProuducts: BugProductModel[]) {

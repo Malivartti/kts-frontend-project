@@ -54,7 +54,9 @@ class ProductStore {
         this._data = normalizeProuct(res.data);
       });
     } catch (e) {
-      this._meta = Meta.error;
+      runInAction(() => {
+        this._meta = Meta.error;
+      });
       console.log(e);
     }
   }

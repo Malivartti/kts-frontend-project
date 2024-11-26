@@ -1,5 +1,6 @@
-import { useProductsStore } from '@app/providers/ProductsStoreContextProvider';
+
 import { categoryAndProducts } from '@entities/Category';
+import { useProductsStore } from '@shared/stores/ProductsStore';
 import Text from '@shared/ui/Text';
 import { observer } from 'mobx-react-lite';
 import { useMemo } from 'react';

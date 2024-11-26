@@ -34,6 +34,11 @@ const Product: FC<ProductProps> = ({ productStore }) => {
     rootStore.bug.addToBug(product);
   }, [product]);
 
+  const toOrder = useCallback(() => {
+    rootStore.bug.addToBug(product);
+    navigate(AppRouteUrls.order.create());
+  }, [navigate, product]);
+
   if (productStore.isError) {
     return null;
   }
@@ -46,12 +51,18 @@ const Product: FC<ProductProps> = ({ productStore }) => {
         <Text view='p-20' tag='p' color='secondary' className={cls.Product__description}>{product.description}</Text>
         <Text view='title' className={cls.Product__price}>{`$${product.price}`}</Text>
         <div className={cls.Product__buttons}>
-          <Button className={cls.Product__button}>{t('Купить')}</Button>
+          <Button
+            className={cls.Product__button}
+            onClick={toOrder}>
+            {t('Купить')}
+          </Button>
           <Button
             theme={ButtonTheme.OUTLINE}
             className={cls.Product__button}
             onClick={toBug}
-          >{t('В корзину')}</Button>
+          >
+            {t('В корзину')}
+          </Button>
         </div>
       </div>
     </div>

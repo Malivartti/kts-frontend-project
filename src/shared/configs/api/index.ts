@@ -6,7 +6,7 @@ export const endpoints = {
     get: (): string => `${API_ENTRY_POINT}/products`,
   },
   product: {
-    getProduct: (id: string): string => `${API_ENTRY_POINT}/products/${id}`,
+    getProduct: (id: string | number): string => `${API_ENTRY_POINT}/products/${id}`,
   },
   categoryes: {
     getCategoryes: (): string => `${API_ENTRY_POINT}/categories`,

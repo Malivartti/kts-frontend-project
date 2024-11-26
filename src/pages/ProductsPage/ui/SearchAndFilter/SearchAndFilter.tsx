@@ -1,6 +1,7 @@
-import { useProductsStore } from '@app/providers/ProductsStoreContextProvider';
+
 import { CategoryModel } from '@entities/Category';
 import { OptionModel } from '@entities/Option';
+import { useProductsStore } from '@shared/stores/ProductsStore';
 import Button from '@shared/ui/Button';
 import Input from '@shared/ui/Input';
 import MultiDropdown from '@shared/ui/MultiDropdown';

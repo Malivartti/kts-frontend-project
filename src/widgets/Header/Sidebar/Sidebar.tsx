@@ -1,8 +1,13 @@
+import { AppRouteUrls } from '@shared/configs/router';
+import rootStore from '@shared/stores/RootStore';
+import Button from '@shared/ui/Button';
 import Text from '@shared/ui/Text';
-import { FC, useEffect, useRef } from 'react';
+import BugProductsList from '@widgets/BugProductsList';
+import { observer } from 'mobx-react-lite';
+import { FC, useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-import ProductsList from './ProductsList';
 import cls from './Sidebar.module.scss';
 
 type SidebarProps = {
@@ -12,8 +17,14 @@ type SidebarProps = {
 
 const Sidebar: FC<SidebarProps> = ({ isShow, setIsShow }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const sidebarRef = useRef<HTMLDivElement>(null);
+
+  const toOrder = useCallback(() => {
+    navigate(AppRouteUrls.order.create());
+    setIsShow(false);
+  }, [navigate, setIsShow]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -36,10 +47,15 @@ const Sidebar: FC<SidebarProps> = ({ isShow, setIsShow }) => {
     <div className={cls.Sidebar}>
       <div className={cls.Sidebar__container} ref={sidebarRef}>
         <Text className={cls.Sidebar__title} tag='h2' view='p-32'>{t('Покупки')}</Text>
-        <ProductsList />
+        <BugProductsList list={rootStore.bug.bug} totalSum={rootStore.bug.totalSum}/>
+        {!!rootStore.bug.bugCount && (
+          <Button className={cls.Sidebar__btn} onClick={toOrder}>
+            {t('Купить')}
+          </Button>
+        )}
       </div>
     </div>
   );
 };
 
-export default Sidebar;
+export default observer(Sidebar);

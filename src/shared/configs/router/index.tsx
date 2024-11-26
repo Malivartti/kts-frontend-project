@@ -1,14 +1,17 @@
-import { ProductsStoreContextProvider } from '@app/providers/ProductsStoreContextProvider';
+
 import { Role } from '@entities/User';
 import AboutUsPage from '@pages/AboutUsPage';
 import DashboardPage from '@pages/DashboardPage/DashboardPage';
 import LoginPage from '@pages/LoginPage';
 import NotFoundPage from '@pages/NotFoundPage';
+import OrderPage from '@pages/OrderPage/ui/OrderPage';
 import ProductPage from '@pages/ProductPage';
 import ProductsPage from '@pages/ProductsPage';
 import ProfilePage from '@pages/ProfilePage';
 import RegisterPage from '@pages/RegisterPage';
 import StatisticsPage from '@pages/StatisticsPage/ui/StatisticsPage';
+import { OrderStoreContextProvider } from '@shared/stores/OrderStore';
+import { ProductsStoreContextProvider } from '@shared/stores/ProductsStore';
 import rootStore from '@shared/stores/RootStore';
 import { Navigate, RouteProps } from 'react-router-dom';
 
@@ -21,6 +24,7 @@ export enum AppRoutes {
   LOGIN = '/login',
   REGISTER = '/register',
   PROFILE = '/profile',
+  ORDER = '/order',
   STATISTICS = '/statistics',
   DASHBOARD = '/dashboard',
   NOT_FOUND = '*'
@@ -76,6 +80,15 @@ export const AppRoutePages: TAppRoutePages[] = [
     roles: [Role.customer, Role.admin],
   },
   {
+    path: AppRoutes.ORDER,
+    element: (
+      <OrderStoreContextProvider>
+        <OrderPage />
+      </OrderStoreContextProvider>
+    ),
+    roles: [Role.guest, Role.customer],
+  },
+  {
     path: AppRoutes.STATISTICS,
     element: (
       <ProductsStoreContextProvider>
@@ -93,6 +106,7 @@ export const AppRoutePages: TAppRoutePages[] = [
     ),
     roles: [Role.admin],
   },
+
   {
     path: AppRoutes.NOT_FOUND,
     element: <NotFoundPage />,
@@ -125,6 +139,10 @@ export const AppRouteUrls = {
   profile: {
     mask: AppRoutes.PROFILE,
     create: () => AppRoutes.PROFILE,
+  },
+  order: {
+    mask: AppRoutes.ORDER,
+    create: () => AppRoutes.ORDER,
   },
   statistics: {
     mask: AppRoutes.STATISTICS,

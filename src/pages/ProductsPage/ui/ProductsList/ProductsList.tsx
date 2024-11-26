@@ -1,6 +1,7 @@
-import { useProductsStore } from '@app/providers/ProductsStoreContextProvider';
+
 import { ProductModel } from '@entities/Product';
 import { AppRouteUrls } from '@shared/configs/router';
+import { useProductsStore } from '@shared/stores/ProductsStore';
 import rootStore from '@shared/stores/RootStore';
 import Button from '@shared/ui/Button';
 import Card from '@shared/ui/Card';

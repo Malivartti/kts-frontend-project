@@ -1,0 +1,44 @@
+.PaymentStep {
+  &__title {
+    margin-bottom: 30px;
+  }
+
+  &__sum {
+    margin-bottom: 15px;
+  }
+
+  &__form {
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+
+  &__input {
+    margin-bottom: 10px;
+  }
+
+  &__row {
+    display: flex;
+  }
+
+  &__expiry {
+    flex-grow: 1;
+    margin-right: 15px;
+  }
+
+  &__cvc {
+    min-width: 100px;
+  }
+
+  &__btns {
+    display: flex;
+    align-self: center;
+    margin-top: 30px;
+  }
+
+  &__prev {
+    margin-right: 15px;
+  }
+}
