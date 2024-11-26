@@ -4,6 +4,7 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import DeliveryStepModel from './models/DeliveryStepModel';
 import OrderStepModel from './models/OrderStepModel';
 import PaymentStepModel from './models/PaymentStepModel';
+import rootStore from '../RootStore';
 
 enum orderPage {
   order = 'order',
@@ -102,6 +103,7 @@ class OrderStore {
     case orderPage.payment:
       this._page = orderPage.congratulation;
       this._progress = 100;
+      rootStore.bug.setBug([]);
       break;
     }
   }
