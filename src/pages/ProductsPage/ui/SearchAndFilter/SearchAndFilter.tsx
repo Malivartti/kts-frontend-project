@@ -1,6 +1,7 @@
 
 import { CategoryModel } from '@entities/Category';
 import { OptionModel } from '@entities/Option';
+import useDebouncedFunction from '@shared/hooks/useDebouncedFunction';
 import { useProductsStore } from '@shared/stores/ProductsStore';
 import Button from '@shared/ui/Button';
 import Input from '@shared/ui/Input';
@@ -20,6 +21,10 @@ const SearchAndFilter: FC<SearchAndFilterProps> = ({ className }) => {
   const productsStore = useProductsStore();
   const { t } = useTranslation('products');
 
+  const debouncedGetProducts = useDebouncedFunction(() => {
+    productsStore.getProductsByFirst();
+  }, 500);
+
   const formatCategoryes = useCallback((categories: CategoryModel[]): OptionModel[] => {
     return categories.map((category) => ({
       key: String(category.id),
@@ -33,28 +38,22 @@ const SearchAndFilter: FC<SearchAndFilterProps> = ({ className }) => {
 
   const changeSearch = useCallback((search: string) => {
     productsStore.setSearch(search);
-  }, [productsStore]);
+    debouncedGetProducts();
+  }, [productsStore, debouncedGetProducts]);
 
   const changeFilter = useCallback((options: OptionModel[]) => {
     productsStore.setFilter(options);
-  }, [productsStore]);
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    productsStore.getProductsByFirst();
-  };
+    debouncedGetProducts();
+  }, [productsStore, debouncedGetProducts]);
 
   return (
     <div className={classNames(cls.SearchAndFilter, className)}>
-      <form className={cls.SearchAndFilter__search} onSubmit={handleSubmit}>
-        <Input
-          value={productsStore.search}
-          onChange={changeSearch}
-          className={cls.SearchAndFilter__Input}
-          placeholder={t('Поиск продукта')}
-        />
-        <Button>{t('Найти')}</Button>
-      </form>
+      <Input
+        value={productsStore.search}
+        onChange={changeSearch}
+        className={cls.SearchAndFilter__Input}
+        placeholder={t('Поиск продукта')}
+      />
       <MultiDropdown
         options={formatCategoryes(productsStore.categories)}
         value={productsStore.filter}
