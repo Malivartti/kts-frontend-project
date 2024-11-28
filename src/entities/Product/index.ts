@@ -23,6 +23,22 @@ export interface ProductModel {
   updatedAt: Date;
 }
 
+export interface ProductCreateApiReq {
+  title: string;
+  price: number;
+  description: string;
+  categoryId: number;
+  images: string[];
+}
+
+export interface ProductUpdateApiReq {
+  title?: string;
+  price?: number;
+  description?: string;
+  categoryId?: number;
+  images?: string[];
+}
+
 const checkImages = (images: string[]): string[] => {
   const goodImages: string[] = [];
   images.forEach(image => {
@@ -34,11 +50,19 @@ const checkImages = (images: string[]): string[] => {
   return goodImages;
 };
 
+const normalizeImage = (image: string): string => {
+  return image.replaceAll('"', '').replaceAll('\'', '').replaceAll('[', '').replaceAll(']', '');
+};
+
+const normalizeImages = (images: string[]): string[] => {
+  return images.map(normalizeImage);
+};
+
 export const normalizeProuct = (raw: ProductApi): ProductModel => ({
   ...raw,
   creationAt: new Date(raw.creationAt),
   updatedAt: new Date(raw.updatedAt),
-  images: checkImages(raw.images),
+  images: normalizeImages(raw.images),
 });
 
 export const normalizeProducts = (raw: ProductApi[]): ProductModel[] => (

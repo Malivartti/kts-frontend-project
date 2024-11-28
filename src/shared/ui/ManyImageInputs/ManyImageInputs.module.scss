@@ -1,0 +1,27 @@
+.ManyImageInputs {
+  display: flex;
+  flex-direction: column;
+  
+  &__input-block {
+    display: flex;
+  }
+
+  &__img-wrapper {
+    width: 52px;
+    flex-shrink: 0;
+    margin-right: 15px;
+  }
+
+  &__img {
+    background-color: var(--skeleton-base-color);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 100%;
+  }
+
+  &__input {
+    width: 100%;
+  }
+}
+

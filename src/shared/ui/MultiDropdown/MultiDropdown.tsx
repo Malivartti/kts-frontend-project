@@ -87,6 +87,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
                 <button
                   className={cls.MultiDropdown__option}
                   key={option.key}
+                  type='button'
                   onClick={() => handleOptionChange(option)}
                 >
                   <Text view="p-16" color={value.find(item => item.key === option.key) ? 'accent' : 'primary'}>

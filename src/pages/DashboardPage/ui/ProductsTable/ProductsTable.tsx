@@ -1,6 +1,7 @@
 import { ProductModel } from '@entities/Product';
 import { useDashboardStore } from '@shared/stores/DashboardStore';
 import Button from '@shared/ui/Button';
+import Loader from '@shared/ui/Loader';
 import Text from '@shared/ui/Text';
 import { observer } from 'mobx-react-lite';
 import { MouseEvent, useCallback } from 'react';
@@ -28,14 +29,20 @@ const ProductsTable = () => {
 
   const onDelete = useCallback((product: ProductModel) => {
     dashboardStore.setSelectedProduct(product);
-    dashboardStore.deleteProduct();
+    dashboardStore.deleteProductAndUpdate();
   }, [dashboardStore]);
 
   return (
     <div className={cls.ProductsTable}>
       <div className={cls.ProductsTable__top}>
-        <Text tag='h2' view='p-20'>
-          {t('Всего')}
+        <Text tag='h2' view='p-20' >
+          <span className={cls.ProductsTable__total}>
+            {t('Всего')} {
+              dashboardStore.isLoading
+                ? <Loader size='s' />
+                : dashboardStore.totalProducts
+            }
+          </span>
         </Text>
         <Button onClick={onCreate}>
           {t('Создать')}

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import Text from '../Text';
 import cls from './Input.module.scss';
@@ -29,6 +29,10 @@ const Input: React.FC<InputProps> = ({
     setInnerValue(e.target.value);
     onChange(e.target.value);
   }, [onChange]);
+
+  useEffect(() => {
+    setInnerValue(value);
+  }, [value]);
 
   return (
     <div className={classNames(cls.Input__wrapper, className)}>

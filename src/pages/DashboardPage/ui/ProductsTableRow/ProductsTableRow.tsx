@@ -20,7 +20,7 @@ const ProductsTableRow: FC<ProductsTableRowProps> = ({ product, onChange, onDele
       <td><Text tag='span' view='p-20'>{product.id}</Text></td>
       <td><Text tag='span' view='p-20'>{product.title}</Text></td>
       <td><Text tag='span' view='p-20'>{product.category.name}</Text></td>
-      <td className={cls.ProductsTableRow_center}><Text tag='span' view='p-20'>{product.price}</Text></td>
+      <td className={cls.ProductsTableRow_center}><Text tag='span' view='p-20'>{'$'}{product.price}</Text></td>
       <td><Button className={cls.ProductsTableRow__btn} theme={ButtonTheme.CLEAR} onClick={onChange}>
         {t('Изменить')}
       </Button></td>

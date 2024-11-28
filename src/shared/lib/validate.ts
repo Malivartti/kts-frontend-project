@@ -27,3 +27,8 @@ export const validateCardExpiryString = (value: string): boolean => {
   const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
   return regex.test(value);
 };
+
+export const validateUrlString = (value: string): boolean => {
+  const regex = /^https?:\/\/\S+/i;
+  return regex.test(value);
+};

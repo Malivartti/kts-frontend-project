@@ -8,6 +8,11 @@
     justify-content: space-between;
   }
 
+  &__total {
+    display: flex;
+    align-items: center;
+  }
+
   &__table {
     width: 100%;
     border-collapse: collapse;
