@@ -1,0 +1,20 @@
+.Slider {
+  &__img {
+    background-color: var(--skeleton-base-color);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 100%;
+    transition: background var(--transition-color-ms) linear;
+  }
+
+  &__slider {
+    --loader-bar-height: 0;
+    --slider-height-percentage: 100%;
+    --organic-arrow-height: 25px;
+    --control-button-height: 10%;
+    --control-button-width: 10%;
+    --control-button-background: var(--neutral-color);
+    --slider-transition-duration: 0.2s;
+  }
+}

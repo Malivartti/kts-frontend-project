@@ -1,6 +1,5 @@
+import PageError from '@pages/PageError';
 import { Component, ErrorInfo, ReactNode } from 'react';
-
-import PageError from '@/App/pages/PageError';
 
 type ErrorBoundaryProps = {
   children?: ReactNode

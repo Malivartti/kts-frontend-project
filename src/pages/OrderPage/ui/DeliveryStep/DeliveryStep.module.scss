@@ -1,0 +1,27 @@
+.DeliveryStep {
+  &__title {
+    margin-bottom: 30px;
+  }
+
+  &__form {
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+
+  &__input {
+    margin-bottom: 10px;
+  }
+
+  &__btns {
+    display: flex;
+    align-self: center;
+    margin-top: 30px;
+  }
+
+  &__prev {
+    margin-right: 15px;
+  }
+}

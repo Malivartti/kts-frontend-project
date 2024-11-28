@@ -1,0 +1,12 @@
+{
+  "Вход": "Login",
+  "Почта": "Email",
+  "Пароль": "Password",
+  "Зарегистрироваться": "Sign up",
+  "Войти": "Sign in",
+  "Введите почту": "Enter email",
+  "Введите пароль": "Enter password",
+  "Неверный формат": "Invalid format",
+  "Пароль должен иметь минимум 4 символа": "Password must be at least 4 characters long",
+  "Пароль должен состоять только из латинских букв и цифр": "The password must consist only of Latin letters and numbers"
+}

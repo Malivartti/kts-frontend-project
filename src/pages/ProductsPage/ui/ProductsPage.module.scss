@@ -1,0 +1,18 @@
+.ProductsPage {
+  &__container {
+    padding-top: var(--page-padding-top);
+    padding-bottom: var(--page-padding-bottom);
+  }
+
+  &__Intro {
+    margin-bottom: 50px;
+  }
+
+  &__SearchAndFilter {
+    margin-bottom: 50px;
+  }
+
+  &__ProductsList {
+    margin-bottom: 50px;
+  }
+}

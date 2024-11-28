@@ -1,0 +1,12 @@
+.AboutUsPage {
+  padding-top: var(--page-padding-top);
+
+  &__text {
+    text-indent: 50px;
+    text-align: justify;
+  }
+
+  &__text:not(:last-child) {
+    margin-bottom: 25px;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "Заголовок": "Products",
+  "Описание": "We display products based on the latest products we have, if you want to see our old products please enter the name of the item",
+  "Поиск продукта": "Search product",
+  "Фильтр": "Filter",
+  "Найти": "Find now",
+  "Всего продуктов": "Total Product",
+  "Нет продуктов": "There are no products",
+  "В корзину": "Add to Cart",
+  "Не удалось получить информацию о продуктах": "Failed to retrieve product information",
+  "Не удалось получить информацию о категориях": "Failed to retrieve category information",
+    "Успешный вход": "Successful login"
+}

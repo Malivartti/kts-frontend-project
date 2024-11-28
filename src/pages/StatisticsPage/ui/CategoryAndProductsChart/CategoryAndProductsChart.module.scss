@@ -1,0 +1,10 @@
+.CategoryAndProductsChart {
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__count {
+    display: flex;
+    align-items: center;
+  }
+}

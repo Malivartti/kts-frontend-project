@@ -1,0 +1,17 @@
+.Counter {
+  display: flex;
+  align-items: center;
+
+  &__count {
+    margin: 0 10px;
+  }
+
+  &__btn {
+    padding: 0;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

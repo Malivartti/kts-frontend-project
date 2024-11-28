@@ -1,0 +1,10 @@
+.ProductPage {
+  &__container {
+    padding-top: calc(var(--page-padding-top) - 40px);
+    padding-bottom: 140px;
+  }
+
+  &__BackButton {
+    margin-bottom: 30px;
+  }
+}

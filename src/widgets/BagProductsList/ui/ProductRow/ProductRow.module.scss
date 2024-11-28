@@ -1,0 +1,45 @@
+.ProductRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px 20px;
+
+  &_unavailable {
+    border: 1px solid var(--error-color);
+  }
+
+  &__content {
+    display: flex;
+    width: 75%;
+  }
+
+  &__actions {
+    width: 25%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__img {
+    height: 75px;
+    width: 75px;
+    background-color: var(--skeleton-base-color);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-shrink: 0;
+    transition: background var(--transition-color-ms) linear;
+  }
+
+  &__btn {
+    margin-left: 15px;
+  }
+
+  &__icon {
+    fill: var(--brand-color);
+  }
+
+  &__text {
+    margin-left: 15px;
+  }
+}

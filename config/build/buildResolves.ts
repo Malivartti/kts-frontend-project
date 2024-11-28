@@ -10,7 +10,11 @@ export function buildResolves({ paths }: BuildOptions): webpack.ResolveOptions {
     modules: [paths.src, 'node_modules'],
     mainFiles: ['index'],
     alias: {
-      '@': path.resolve(__dirname, paths.src),
+      '@app': path.resolve(__dirname, paths.src, 'app'),
+      '@pages': path.resolve(__dirname, paths.src, 'pages'),
+      '@widgets': path.resolve(__dirname, paths.src, 'widgets'),
+      '@entities': path.resolve(__dirname, paths.src, 'entities'),
+      '@shared': path.resolve(__dirname, paths.src, 'shared'),
     },
   };
 }

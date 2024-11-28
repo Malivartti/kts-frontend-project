@@ -5,11 +5,15 @@ import { buildCssLoader } from '../build/loaders/buildCssLoader';
 import { buildSvgLoader } from '../build/loaders/buildSvgLoader';
 
 export default ({ config }: {config: webpack.Configuration}) => {
-  config.resolve?.modules?.push(path.resolve(__dirname, '..', '..', 'src'));
+  config.resolve?.modules?.push(path.resolve(__dirname, '..', '..', 'src', 'src'));
   config.resolve?.extensions?.push('.ts', '.tsx', '.js');
   if (config.resolve?.alias) {
     config.resolve.alias = {
-      '@': path.resolve(__dirname, '..', '..', 'src'),
+      '@app': path.resolve(__dirname, '..', '..', 'src', 'app'),
+      '@pages': path.resolve(__dirname, '..', '..', 'src', 'pages'),
+      '@widgets': path.resolve(__dirname, '..', '..', 'src', 'widgets'),
+      '@entities': path.resolve(__dirname, '..', '..', 'src', 'entities'),
+      '@shared': path.resolve(__dirname, '..', '..', 'src', 'shared'),
     };
   }
 

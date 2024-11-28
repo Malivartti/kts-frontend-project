@@ -1,0 +1,53 @@
+.Card {
+  display: flex;
+  flex-direction: column;
+  background: var(--neutral-color);
+  height: 100%;
+  transition: background var(--transition-color-ms) linear;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
+  }
+
+  &__text {
+    padding: 24px 12px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  &__img {
+    background-color: var(--skeleton-base-color);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 100%;
+    transition: background var(--transition-color-ms) linear;
+  }
+
+  &__captionSlot {
+    margin-bottom: 8px;
+    word-break:break-all
+  }
+
+  &__title {
+    margin-bottom: 8px;
+    word-break:break-all
+  }
+
+  &__subtitle {
+    margin-bottom: 20px;
+    word-break:break-all
+  }
+
+  &__content {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__action {
+    margin-left: auto;
+  }
+}

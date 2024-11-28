@@ -1,21 +1,26 @@
+import { AppRoutePages, useAccessPages } from '@shared/configs/router';
+import { observer } from 'mobx-react-lite';
+import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { AppRoutePages } from '@/configs/router';
-
 const AppRouter = () => {
+  const accessPages = useAccessPages(AppRoutePages);
+
   return (
-    <Routes>
-      {
-        ...AppRoutePages.map(({ path, element }) => (
-          <Route
-            key={path}
-            path={path}
-            element={element}
-          />
-        ))
-      }
-    </Routes>
+    <Suspense>
+      <Routes>
+        {
+          ...accessPages.map(({ path, element }) => (
+            <Route
+              key={path}
+              path={path}
+              element={element}
+            />
+          ))
+        }
+      </Routes>
+    </Suspense>
   );
 };
 
-export default AppRouter;
+export default observer(AppRouter);
