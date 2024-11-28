@@ -1,7 +1,6 @@
 import { endpoints } from '@shared/configs/api';
 import { AppRouteUrls } from '@shared/configs/router';
 import { randomNumber } from '@shared/lib/random';
-import toast from '@shared/ui/toast';
 import axios, { AxiosResponse } from 'axios';
 import classNames from 'classnames';
 import { FC, ReactNode, useCallback } from 'react';
@@ -9,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import cls from './RandomProductLink.module.scss';
+import myToast from '@shared/ui/myToast';
 
 type RandomProductLinkProps = {
   className?: string;
@@ -34,7 +34,7 @@ const RandomProductLink: FC<RandomProductLinkProps> = ({ className, children }) 
         navigate(AppRouteUrls.product.create(randomProduct.id));
       }
     } catch (e) {
-      toast(t('Не удалось получить случайный продукт'), 'error');
+      myToast(t('Не удалось получить случайный продукт'), 'error');
       console.log(e);
       navigate(AppRouteUrls.products.create());
     }

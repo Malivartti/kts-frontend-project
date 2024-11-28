@@ -1,4 +1,4 @@
-import toast from '@shared/ui/toast';
+import myToast from '@shared/ui/myToast';
 import { TFunction } from 'i18next';
 import { reaction } from 'mobx';
 import { useEffect } from 'react';
@@ -28,12 +28,12 @@ export const useTrackMetaAndToast = ({
       (message) => {
         if (store.isError) {
           onError?.();
-          toast(t(message), 'error');
+          myToast(t(message), 'error');
         }
         if (store.isSuccess) {
           onSuccess?.();
           if (!message) return;
-          toast(t(message), 'success');
+          myToast(t(message), 'success');
         }
       }
     );
