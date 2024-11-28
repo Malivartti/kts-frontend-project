@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - var(--navbar-height) * 2 - 50px);
+  min-height: calc(100vh - 50px);
   padding: 50px 0;
 
   &__form {
