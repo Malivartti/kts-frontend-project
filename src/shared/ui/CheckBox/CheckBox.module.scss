@@ -8,6 +8,9 @@
   color: var(--brand-color);
   border-radius: 0;
   cursor: pointer;
+  transition: background var(--transition-color-ms) linear,
+              color var(--transition-color-ms) linear,
+              border var(--transition-color-ms) linear;
 
   &:hover {
     border: 1px solid var(--brand-color);

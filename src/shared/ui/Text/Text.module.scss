@@ -1,4 +1,6 @@
 .Text {
+  transition: color var(--transition-color-ms) linear;
+  
   &_view-title {
     font-size: 44px;
     line-height: 48px;

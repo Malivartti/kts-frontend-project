@@ -3,23 +3,27 @@ import { BagProductModel } from '@entities/BagProduct';
 import { ProductModel } from '@entities/Product';
 import { action, computed, makeObservable, observable } from 'mobx';
 
-type PrivateField = '_bag';
+type PrivateField = '_bag' | '_isShowSidebar'; 
 
 class BagStore {
   private _bag: BagProductModel[] = [];
+  private _isShowSidebar: boolean = false;
   private readonly _productCountLimit: number = 10;
 
   constructor() {
     makeObservable<BagStore, PrivateField>(this, {
       _bag: observable,
+      _isShowSidebar: observable,
       bag: computed,
       bagCount: computed,
       totalSum: computed,
+      isShowSidebar: computed,
       setBag: action,
       addToBag: action.bound,
       removeFromBag: action.bound,
       increaseProductCount: action.bound,
       decreaseProductCount: action.bound,
+      setIsShowSidebar: action,
     });
   }
 
@@ -35,8 +39,16 @@ class BagStore {
     return this._bag.reduce((acc, cur) => acc + (cur.price * cur.count), 0);
   }
 
+  get isShowSidebar(): boolean {
+    return this._isShowSidebar;
+  }
+
   setBag(bagProuducts: BagProductModel[]): void {
     this._bag = bagProuducts;
+  }
+
+  setIsShowSidebar(isShow: boolean): void {
+    this._isShowSidebar = isShow;
   }
 
   addToBag(product: ProductModel): void {

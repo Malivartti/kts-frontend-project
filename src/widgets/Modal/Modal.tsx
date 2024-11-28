@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { FC, ReactNode, useEffect, useRef } from 'react';
 
 import cls from './Modal.module.scss';
@@ -24,12 +25,11 @@ const Modal: FC<ModalProps> = ({ children, isShow, setIsShow }) => {
     };
   }, [isShow, setIsShow]);
 
-  if (!isShow) {
-    return;
-  }
-
   return (
-    <div className={cls.Modal}>
+    <div className={classNames(
+      cls.Modal,
+      { [cls.Modal_hide]: !isShow }
+    )}>
       <div className={cls.Modal__container} ref={modalRef}>
         {children}
       </div>

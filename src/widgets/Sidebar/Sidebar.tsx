@@ -3,19 +3,16 @@ import rootStore from '@shared/stores/RootStore';
 import Button from '@shared/ui/Button';
 import Text from '@shared/ui/Text';
 import BugProductsList from '@widgets/BagProductsList';
+import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import { FC, useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import cls from './Sidebar.module.scss';
 
-type SidebarProps = {
-  isShow: boolean;
-  setIsShow: (value: boolean) => void;
-}
 
-const Sidebar: FC<SidebarProps> = ({ isShow, setIsShow }) => {
+const Sidebar= () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -23,13 +20,13 @@ const Sidebar: FC<SidebarProps> = ({ isShow, setIsShow }) => {
 
   const toOrder = useCallback(() => {
     navigate(AppRouteUrls.order.create());
-    setIsShow(false);
-  }, [navigate, setIsShow]);
+    rootStore.bag.setIsShowSidebar(false);
+  }, [navigate]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       if (!sidebarRef.current?.contains(event.target as HTMLElement)) {
-        setIsShow(false);
+        rootStore.bag.setIsShowSidebar(false);
       }
     };
 
@@ -37,15 +34,19 @@ const Sidebar: FC<SidebarProps> = ({ isShow, setIsShow }) => {
     return () => {
       document.removeEventListener('click', handleClick);
     };
-  }, [isShow, setIsShow]);
-
-  if (!isShow) {
-    return;
-  }
+  }, []);
 
   return (
-    <div className={cls.Sidebar}>
-      <div className={cls.Sidebar__container} ref={sidebarRef}>
+    <>
+      <div className={classNames(
+        cls.Sidebar,
+        { [cls.Sidebar_hide]: !rootStore.bag.isShowSidebar }
+      )}>
+      </div>
+      <div className={classNames(
+        cls.Sidebar__container,
+        { [ cls.Sidebar__container_hide]: !rootStore.bag.isShowSidebar }
+      )} ref={sidebarRef}>
         <Text className={cls.Sidebar__title} tag='h2' view='p-32'>{t('Покупки')}</Text>
         <BugProductsList list={rootStore.bag.bag} totalSum={rootStore.bag.totalSum}/>
         {!!rootStore.bag.bagCount && (
@@ -54,7 +55,8 @@ const Sidebar: FC<SidebarProps> = ({ isShow, setIsShow }) => {
           </Button>
         )}
       </div>
-    </div>
+
+    </>
   );
 };
 

@@ -6,6 +6,8 @@
   width: 100%;
   color: var(--primary-color);
   background: var(--input-bg-color);
+  transition: background var(--transition-color-ms) linear,
+              color var(--transition-color-ms) linear;
 
   &::placeholder {
     color: var(--secondary-color);
@@ -37,5 +39,6 @@
   &__error {
     margin-top: 8px;
     color: var(--error-color);
+    transition: color var(--transition-color-ms) linear;
   }
 }

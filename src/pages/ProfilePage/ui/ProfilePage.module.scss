@@ -24,6 +24,7 @@
     background-size: cover;
     transform: translateX(50%);
     margin-bottom: 30px;
+    transition: background var(--transition-color-ms) linear;
   }
 
   &__row {

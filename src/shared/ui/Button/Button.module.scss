@@ -8,6 +8,8 @@
   align-items: center;
   justify-content: center;
   text-wrap: nowrap;
+  transition: background var(--transition-color-ms) linear,
+              color var(--transition-color-ms) linear;
 
   &:hover {
     background: var(--brand-hover-color);
@@ -37,6 +39,7 @@
   &__loader {
     margin-right: 10px;
     color: var(--neutral-color);
+    transition: color var(--transition-color-ms) linear;
   }
 
   &_loading {

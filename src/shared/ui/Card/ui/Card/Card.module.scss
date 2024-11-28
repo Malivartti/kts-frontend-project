@@ -3,6 +3,7 @@
   flex-direction: column;
   background: var(--neutral-color);
   height: 100%;
+  transition: background var(--transition-color-ms) linear;
 
   &:hover {
     box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
@@ -21,6 +22,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     padding-bottom: 100%;
+    transition: background var(--transition-color-ms) linear;
   }
 
   &__captionSlot {

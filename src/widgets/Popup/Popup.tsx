@@ -56,14 +56,12 @@ const Popup: FC<PopupProps> = ({ className, button, children }) => {
       >
         {button}
       </button>
-      {
-        isShow && (
-          <div className={cls.Popup__list} ref={listRef}>
-            {children}
-          </div>
-        )
-      }
-
+      <div className={classNames(
+        cls.Popup__list,
+        { [cls.Popup__list_hide]: !isShow }
+      )} ref={listRef}>
+        {children}
+      </div>
     </div>
   );
 };

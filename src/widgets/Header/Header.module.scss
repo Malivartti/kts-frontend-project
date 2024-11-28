@@ -5,6 +5,7 @@
   position: fixed;
   width: 100%;
   z-index: 1;
+  transition: background var(--transition-color-ms) linear;
 
   &__container {
     display: flex;

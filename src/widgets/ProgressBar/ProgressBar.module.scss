@@ -2,11 +2,13 @@
   height: 5px;
   width: 100%;
   background-color: var(--tertiary-color);
+  transition: background var(--transition-color-ms) linear;
 
 
   &__progress {
     background-color: var(--brand-color);
     height: 5px;
-    transition: width .3s linear;
+    transition: width var(--transition-color-ms) linear,
+                background var(--transition-color-ms) linear;
   }
 }

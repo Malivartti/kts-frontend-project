@@ -2,6 +2,7 @@ import { useTheme } from '@app/providers/ThemeProvider';
 import { useBagStoreInit } from '@shared/stores/BagStore';
 import { useQueryParamsStoreInit } from '@shared/stores/QueryParamsStore';
 import { useUserStoreInit } from '@shared/stores/UserStore';
+import Sidebar from '@widgets/Sidebar';
 import classNames from 'classnames';
 import { FC, ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -22,6 +23,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
   return (
     <div className={classNames('app', theme)}>
       <Header />
+      <Sidebar />
       <ContainerLayout>
         <ToastContainer />
         {children}
