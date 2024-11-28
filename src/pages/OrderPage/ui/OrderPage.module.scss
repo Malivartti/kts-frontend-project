@@ -1,6 +1,6 @@
 .OrderPage {
-  padding-top: 100px;
-  padding-bottom: 50px;
+  padding-top: var(--page-padding-top);
+  padding-bottom: var(--page-padding-bottom);
 
   &__progress-bar {
     margin-bottom: 30px;

@@ -3,6 +3,7 @@ import { useTrackMetaAndToast } from '@shared/stores/RootStore';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import cls from './DashboardPage.module.scss';
 import ProductModal from './ProductModal';
 import ProductsTable from './ProductsTable';
 
@@ -18,7 +19,7 @@ const DashboardPage = () => {
   useTrackMetaAndToast({ t, store: dashboardStore });
 
   return (
-    <div>
+    <div className={cls.DashboardPage}>
       <ProductsTable/>
       <ProductModal/>
     </div>

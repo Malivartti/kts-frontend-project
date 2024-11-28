@@ -1,11 +1,9 @@
 .ProductsTable {
-  padding-top: 100px;
-  padding-bottom: 50px;
-
   &__top {
     margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   &__total {

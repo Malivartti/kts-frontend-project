@@ -1,5 +1,5 @@
 .AboutUsPage {
-  padding-top: 100px;
+  padding-top: var(--page-padding-top);
 
   &__text {
     text-indent: 50px;

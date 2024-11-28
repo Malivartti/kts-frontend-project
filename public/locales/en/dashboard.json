@@ -18,9 +18,10 @@
   "Не удалось получить информацию о продуктах": "Failed to retrieve product information",
   "Не удалось получить информацию о категориях": "Failed to retrieve category information",
   "Информация о продукте успешно обновлена": "Product information updated successfully",
-  "": "",
-  "": "",
-  "": "",
-  "": "",
-  "": ""
+  "Продукт успешно добавлен": "Product added successfully",
+  "Не удалось добавить продукт": "Failed to add product",
+  "Не удалось получить продукты": "Failed to receive products",
+  "Не удалось обновить информацию о продукте": "Failed to update product information",
+  "Продукт успешно удален": "The product has been successfully deleted",
+  "Не удалось удалить продукт": "Failed to delete product"
 }

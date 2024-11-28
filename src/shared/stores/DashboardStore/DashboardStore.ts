@@ -435,7 +435,7 @@ class DashboardStore {
       });
     } catch (e) {
       runInAction(() => {
-        this._message = 'Не удалось обновить информацио о продукте';
+        this._message = 'Не удалось обновить информацию о продукте';
         this._meta = Meta.error;
       });
       console.log(e);
