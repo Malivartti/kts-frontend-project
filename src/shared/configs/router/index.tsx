@@ -14,6 +14,7 @@ import { DashboardStoreContextProvider } from '@shared/stores/DashboardStore';
 import { OrderStoreContextProvider } from '@shared/stores/OrderStore';
 import { ProductsStoreContextProvider } from '@shared/stores/ProductsStore';
 import rootStore from '@shared/stores/RootStore';
+import { useMemo } from 'react';
 import { Navigate, RouteProps } from 'react-router-dom';
 
 export enum AppRoutes {
@@ -160,13 +161,9 @@ export const AppRouteUrls = {
 };
 
 export const useAccessPages = (pages: TAppRoutePages[]) => {
-  let userRole = rootStore.user.user?.role;
+  const userRole = rootStore.user.user?.role ?? Role.guest;
 
-  if (userRole === undefined) {
-    userRole = Role.guest;
-  }
-
-  return pages.map((page) => {
+  return useMemo(() => pages.map((page) => {
     if (page.path === AppRoutes.NOT_FOUND) {
       return page;
     }
@@ -174,5 +171,7 @@ export const useAccessPages = (pages: TAppRoutePages[]) => {
     if (page.roles.includes(userRole)) {
       return page;
     }
-  }).filter(Boolean);
+  }).filter(Boolean),
+  [userRole, pages]
+  );
 };
