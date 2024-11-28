@@ -1,6 +1,5 @@
 {
   "name": "kts-frontend-project",
-  "private": false,
   "version": "0.0.0",
   "homepage": "https://malivartti.github.io/kts-frontend-project",
   "scripts": {
