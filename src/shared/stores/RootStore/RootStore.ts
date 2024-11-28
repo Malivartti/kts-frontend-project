@@ -1,4 +1,4 @@
-import BugStore from '../BugStore/BugStore';
+import BagStore from '../BagStore';
 import QueryParamsStore from '../QueryParamsStore';
 import UserStore from '../UserStore';
 
@@ -6,7 +6,7 @@ import UserStore from '../UserStore';
 class RootStore {
   readonly query = new QueryParamsStore();
   readonly user = new UserStore();
-  readonly bug = new BugStore();
+  readonly bag = new BagStore();
 }
 
 export default RootStore;

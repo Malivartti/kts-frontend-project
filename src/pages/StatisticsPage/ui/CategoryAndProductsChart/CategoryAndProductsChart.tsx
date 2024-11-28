@@ -1,6 +1,7 @@
 
 import { categoryAndProducts } from '@entities/Category';
 import { useProductsStore } from '@shared/stores/ProductsStore';
+import Loader from '@shared/ui/Loader';
 import Text from '@shared/ui/Text';
 import { observer } from 'mobx-react-lite';
 import { useMemo } from 'react';
@@ -38,10 +39,24 @@ const CategoryAndProductsChart = () => {
         {t('Количество продуктов по категориям')}
       </Text>
       <Text className={cls.CategoryAndProductsChart__title} tag='h3' view='p-20'>
-        {t('Всего продуктов')} {productsStore.products.length}
+        <span className={cls.CategoryAndProductsChart__count}>
+          {t('Всего продуктов')} {' '}
+          {
+            productsStore.isLoading
+              ? <Loader size='s' />
+              : productsStore.products.length
+          }
+        </span> 
       </Text>
       <Text className={cls.CategoryAndProductsChart__title} tag='h3' view='p-20'>
-        {t('Всего категорий')} {Object.keys(ObjOfcategoryAndProducts).length}
+        <span className={cls.CategoryAndProductsChart__count}>
+          {t('Всего категорий')} {' '}
+          {
+            productsStore.isLoading
+              ? <Loader size='s' />
+              : Object.keys(ObjOfcategoryAndProducts).length
+          }
+        </span>
       </Text>
       <VictoryChart
         domainPadding={{ x: 20, y: 110 }}

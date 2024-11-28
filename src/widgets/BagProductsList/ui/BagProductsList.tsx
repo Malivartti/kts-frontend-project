@@ -1,20 +1,20 @@
-import { BugProductModel } from '@entities/BugProduct';
+import { BagProductModel } from '@entities/BagProduct';
 import Text from '@shared/ui/Text';
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import cls from './BugProductsList.module.scss';
+import cls from './BagProductsList.module.scss';
 import ProductRow from './ProductRow';
 
-type BugProductsListProps = {
+type BagProductsListProps = {
   unavailableProductIds?: Set<number>;
-  list: BugProductModel[];
+  list: BagProductModel[];
   totalSum: number;
   isActions?: boolean
 }
 
-const BugProductsList: FC<BugProductsListProps> = ({ 
+const BagProductsList: FC<BagProductsListProps> = ({ 
   unavailableProductIds = new Set(),
   list,
   totalSum,
@@ -23,7 +23,7 @@ const BugProductsList: FC<BugProductsListProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className={cls.BugProductsList}>
+    <div className={cls.BagProductsList}>
       {
         list.length
           ? (
@@ -44,4 +44,4 @@ const BugProductsList: FC<BugProductsListProps> = ({
   );
 };
 
-export default observer(BugProductsList);
+export default observer(BagProductsList);

@@ -6,7 +6,7 @@ import LangSwitcher from '@widgets/LangSwitcher';
 import ThemeSwitcher from '@widgets/ThemeSwitcher';
 import { observer } from 'mobx-react-lite';
 
-import Bug from '../Bug';
+import Bag from '../Bag';
 import SignIn from '../SignIn';
 import cls from './Actions.module.scss';
 
@@ -16,8 +16,8 @@ const Actions = () => {
       <LangSwitcher className={cls.Actions__item} />
       <ThemeSwitcher className={cls.Actions__item} />
       <AccessComponent roles={[Role.guest, Role.customer]}>
-        <Badge count={rootStore.bug.bugCount} className={cls.Actions__item}>
-          <Bug/>
+        <Badge count={rootStore.bag.bagCount} className={cls.Actions__item}>
+          <Bag/>
         </Badge>
       </AccessComponent>
       <SignIn className={cls.Actions__item} />

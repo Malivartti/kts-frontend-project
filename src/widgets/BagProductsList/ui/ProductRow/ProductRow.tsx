@@ -1,4 +1,4 @@
-import { BugProductModel } from '@entities/BugProduct';
+import { BagProductModel } from '@entities/BagProduct';
 import rootStore from '@shared/stores/RootStore';
 import TrashIcon from '@shared/ui/icons/TrashIcon';
 import Text from '@shared/ui/Text';
@@ -9,7 +9,7 @@ import { FC, MouseEvent, useCallback } from 'react';
 
 import cls from './ProductRow.module.scss';
 type ProductRowProps = {
-  product: BugProductModel;
+  product: BagProductModel;
   isUnavailable?: boolean;
   isActions?: boolean
 }
@@ -20,16 +20,16 @@ const ProductRow: FC<ProductRowProps> = ({
   isActions = true,
 }) => {
   const increase = useCallback(() => {
-    rootStore.bug.increaseProductCount(product);
+    rootStore.bag.increaseProductCount(product);
   }, [product]);
 
   const decrease = useCallback(() => {
-    rootStore.bug.decreaseProductCount(product);
+    rootStore.bag.decreaseProductCount(product);
   }, [product]);
 
   const remove = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    rootStore.bug.removeFromBug(product);
+    rootStore.bag.removeFromBag(product);
   }, [product]);
 
   return (

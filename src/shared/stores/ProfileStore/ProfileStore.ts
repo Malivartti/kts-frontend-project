@@ -42,9 +42,9 @@ class ProfileStore {
 
   async updateUser(): Promise<void> {
     const isValidName = this.validateName();
-    if (isValidName) {
-      await rootStore.user.updateUser(this._name);
-    }
+    if (!isValidName) return;
+    
+    await rootStore.user.updateUser(this._name);
   }
 }
 

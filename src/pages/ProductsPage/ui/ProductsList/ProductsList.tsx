@@ -26,7 +26,7 @@ const ProductsList: FC<ProductsListProps> = ({ className }) => {
 
   const handleClick = useCallback((e: MouseEvent<HTMLElement>, product: ProductModel) => {
     e.preventDefault();
-    rootStore.bug.addToBug(product);
+    rootStore.bag.addToBag(product);
   }, []);
 
   useEffect(() => {

@@ -10,7 +10,7 @@ import { action, computed, IReactionDisposer, makeObservable, observable, reacti
 import rootStore from '../RootStore';
 import PaginationModel from './models/PaginationModel';
 
-type PrivateField = '_products' | '_categories' | '_meta' | '_error' | '_search' 
+type PrivateField = '_products' | '_categories' | '_meta' | '_message' | '_search' 
 | '_filter' | '_totalProducts'
 
 class ProductsStore {
@@ -18,7 +18,7 @@ class ProductsStore {
   private _products: ProductModel[] = [];
   private _categories: CategoryModel[] = [];
   private _meta: Meta = Meta.initial;
-  private _error: string = '';
+  private _message: string = '';
   private _search: string = '';
   private _filter: OptionModel[] = [];
   private _limit: number = 9;
@@ -29,14 +29,15 @@ class ProductsStore {
       _products: observable.ref,
       _categories: observable.ref,
       _meta: observable,
-      _error: observable,
+      _message: observable,
       _search: observable,
       _filter: observable.ref,
       _totalProducts: observable,
       products: computed,
       categories: computed,
-      meta: computed,
-      error: computed,
+      isSuccess: computed,
+      isError: computed,
+      message: computed,
       isNoProducts: computed,
       search: computed,
       filter: computed,
@@ -54,6 +55,7 @@ class ProductsStore {
       getCategoryes: action.bound,
       getDataOfQueryParams: action,
       getAllProducts: action,
+      loading: action,
     });
 
     reaction(
@@ -80,12 +82,16 @@ class ProductsStore {
     return this._categories;
   }
 
-  get meta(): Meta {
-    return this._meta;
+  get isError(): boolean {
+    return this._meta === Meta.error;
   }
 
-  get error(): string {
-    return this._error;
+  get isSuccess(): boolean {
+    return this._meta === Meta.success;
+  }
+
+  get message(): string {
+    return this._message;
   }
 
   get isNoProducts(): boolean {
@@ -124,6 +130,11 @@ class ProductsStore {
     this._limit = limit;
   }
 
+  loading(): void {
+    this._meta = Meta.loading;
+    this._message = '';
+  }
+
   get getGeneralUrlParams(): URLSearchParams {
     const search = String(rootStore.query.getParam(ProductsSearchParams.search) || '');
     const filter = String(rootStore.query.getParam(ProductsSearchParams.filter) || '');
@@ -152,7 +163,6 @@ class ProductsStore {
     });
   }
 
-
   async getPageProducts(): Promise<ProductApi[]> {
     const url = endpoints.products.get();
     const params = this.getGeneralUrlParams;
@@ -169,7 +179,7 @@ class ProductsStore {
   }
 
   async getProducts(): Promise<void> {
-    this._meta = Meta.loading;
+    this.loading();
     this.paginationModel.setIsLoading(true);
     this._products = [];
 
@@ -185,6 +195,7 @@ class ProductsStore {
       });
     } catch(e) {
       runInAction(() => {
+        this._message = 'Не удалось получить информацию о продуктах';
         this._meta = Meta.error;
         this.paginationModel.setIsLoading(false);
       });
@@ -200,6 +211,7 @@ class ProductsStore {
   async getCategoryes(): Promise<void> {
     const url = endpoints.categoryes.getCategoryes();
     this._categories = [];
+    this.loading();
 
     try {
       const res: AxiosResponse<CategoryApi[]> = await axios({
@@ -208,16 +220,21 @@ class ProductsStore {
       });
       runInAction(() => {
         this._categories = normalizeCategories(res.data);
+        this._meta = Meta.success;
       });
     } catch(e) {
+      runInAction(() => {
+        this._message = 'Не удалось получить информацию о категориях';
+        this._meta = Meta.error;
+      });
       alert(e);
-    } 
+    }
   }
 
   async getAllProducts(): Promise<void> {
     const url = endpoints.products.get();
     this._products = [];
-    this._meta = Meta.loading;
+    this.loading();
 
     try {
       const res: AxiosResponse<ProductApi[]> = await axios({
@@ -231,6 +248,7 @@ class ProductsStore {
       });
     } catch(e) {
       runInAction(() => {
+        this._message = 'Не удалось получить информацию о продуктах';
         this._meta = Meta.error;
       });
       console.log(e);

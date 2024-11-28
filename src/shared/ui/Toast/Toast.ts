@@ -1,13 +1,13 @@
-import { toast } from 'react-toastify';
+import { toast as reactToast } from 'react-toastify';
 
-import cls from './Toast.module.scss';
+import cls from './toast.module.scss';
 
-const Toast = (message: string, type: 'error' | 'success') => {
-  toast(message, {
+const toast = (message: string, type: 'error' | 'success') => {
+  reactToast(message, {
     position: 'top-center',
     type,
-    className: cls.Toast,
+    className: cls.toast,
   });
 };
 
-export default Toast;
+export default toast;

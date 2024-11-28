@@ -1,4 +1,4 @@
-import { onlyLatinLettersAndNumbers, validateEmailString } from '@shared/lib/validate';
+import { onlyLatinLettersAndNumbers, validateEmailString, validateUrlString } from '@shared/lib/validate';
 import { action, computed, makeObservable, observable } from 'mobx';
 
 import rootStore from '../RootStore';
@@ -50,6 +50,7 @@ class RegisterStore {
       validateEmail: action,
       validatePassword: action,
       validatePasswordRepeat: action,
+      isValid: action,
       register: action,
     });
   }
@@ -95,13 +96,13 @@ class RegisterStore {
   }
 
   setAvatar(avatar: string): void {
+    if (this._avatarError) {
+      this._avatarError = '';
+    }
     this._avatar = avatar;
   }
 
   setName(name: string): void {
-    if (rootStore.user.isError) {
-      rootStore.user.resetError();
-    }
     if (this._nameError) {
       this._nameError = '';
     }
@@ -109,9 +110,6 @@ class RegisterStore {
   }
 
   setEmail(email: string): void {
-    if (rootStore.user.isError) {
-      rootStore.user.resetError();
-    }
     if (this._emailError) {
       this._emailError = '';
     }
@@ -119,9 +117,6 @@ class RegisterStore {
   }
 
   setPassword(password: string): void {
-    if (rootStore.user.isError) {
-      rootStore.user.resetError();
-    }
     if (this._passwordError) {
       this._passwordError = '';
     }
@@ -129,9 +124,6 @@ class RegisterStore {
   }
 
   setPasswordRepeat(passwordRepeat: string): void {
-    if (rootStore.user.isError) {
-      rootStore.user.resetError();
-    }
     if (this._passwordRepeatError) {
       this._passwordRepeatError = '';
     }
@@ -139,8 +131,12 @@ class RegisterStore {
   }
 
   validateAvatar(): boolean {
-    if (!this._name.trim()) {
-      this._nameError = 'Введите ссылку на фото';
+    if (!this._avatar.trim()) {
+      this._avatarError = 'Введите ссылку на изображение';
+      return;
+    }
+    if (!validateUrlString(this._avatar)) {
+      this._avatarError = 'Неверный формат';
       return;
     }
     return true;
@@ -194,15 +190,20 @@ class RegisterStore {
     return true;
   }
 
-  async register(): Promise<void> {
+  isValid(): boolean {
     const isAvatarValide = this.validateAvatar();
     const isNameValide = this.validateName();
     const isEmailValid = this.validateEmail();
     const isPasswordValid = this.validatePassword();
     const isPasswordRepeatValid = this.validatePasswordRepeat();
-    if (isAvatarValide && isNameValide && isEmailValid && isPasswordValid && isPasswordRepeatValid) {
-      await rootStore.user.registerUser(this._avatar, this._name, this._email, this._password);
-    }
+
+    return isAvatarValide && isNameValide && isEmailValid && isPasswordValid && isPasswordRepeatValid;
+  }
+
+  async register(): Promise<void> {
+    if (!this.isValid()) return;
+
+    await rootStore.user.registerUser(this._avatar, this._name, this._email, this._password);
   }
 }
 

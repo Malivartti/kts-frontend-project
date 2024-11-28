@@ -1,7 +1,10 @@
 {
-    "Количество продуктов по категориям": "Number of products by category",
-    "Всего продуктов": "Total products",
-    "Всего категорий": "Total categories",
-    "Количество добавленный продуктов по дням": "Number of added products by day",
-    "Всего дней": "Total days"
+  "Количество продуктов по категориям": "Number of products by category",
+  "Всего продуктов": "Total products",
+  "Всего категорий": "Total categories",
+  "Количество добавленный продуктов по дням": "Number of added products by day",
+  "Всего дней": "Total days",
+  "Не удалось получить информацию о продуктах": "Failed to retrieve product information",
+  "Не удалось получить информацию о категориях": "Failed to retrieve category information",
+  "Успешный вход": "Successful login"
 }

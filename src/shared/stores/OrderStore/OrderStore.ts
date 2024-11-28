@@ -1,5 +1,5 @@
 import { Meta } from '@entities/Meta';
-import { action, computed, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable, reaction } from 'mobx';
 
 import rootStore from '../RootStore';
 import DeliveryStepModel from './models/DeliveryStepModel';
@@ -13,13 +13,13 @@ enum orderPage {
   congratulation = 'congratulation',
 }
 
-type PrivateField = '_page' | '_progress' | '_meta' | '_error';
+type PrivateField = '_page' | '_progress' | '_meta' | '_message';
 
 class OrderStore {
   private _page: orderPage = orderPage.order;
   private _progress: number = 0;
   private _meta: Meta = Meta.initial;
-  private _error: string = '';
+  private _message: string = '';
   readonly orderStepModel = new OrderStepModel(this);
   readonly deliveryStepModel = new DeliveryStepModel(this);
   readonly paymentStepModel = new PaymentStepModel(this);
@@ -29,8 +29,8 @@ class OrderStore {
       _page: observable,
       _progress: observable,
       _meta: observable,
-      _error: observable,
-      error: computed,
+      _message: observable,
+      message: computed,
       progress: computed,
       isOrderStep: computed,
       isDeliveryStep: computed,
@@ -39,15 +39,25 @@ class OrderStore {
       isLoading: computed,
       isError: computed,
       isSuccess: computed,
-      setError: action,
+      setMessage: action,
       setMeta: action,
       nextStep: action,
       prevStep: action,
     });
+
+    reaction(
+      () => this.isDeliveryStep,
+      isDelivery => {
+        if (isDelivery && rootStore.user.user !== null && !this.deliveryStepModel.name && !this.deliveryStepModel.email) {
+          this.deliveryStepModel.setName(rootStore.user.user.name);
+          this.deliveryStepModel.setEmail(rootStore.user.user.email);
+        }
+      }
+    );
   }
 
-  get error(): string {
-    return this._error;
+  get message(): string {
+    return this._message;
   }
 
   get progress(): number {
@@ -82,8 +92,8 @@ class OrderStore {
     return this._meta === Meta.success;
   }
 
-  setError(error: string): void {
-    this._error = error;
+  setMessage(message: string): void {
+    this._message = message;
   }
 
   setMeta(meta: Meta): void {
@@ -103,7 +113,7 @@ class OrderStore {
     case orderPage.payment:
       this._page = orderPage.congratulation;
       this._progress = 100;
-      rootStore.bug.setBug([]);
+      rootStore.bag.setBag([]);
       break;
     }
   }

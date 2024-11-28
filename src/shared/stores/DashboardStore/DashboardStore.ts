@@ -86,7 +86,7 @@ class DashboardStore {
       validateDescription: action,
       validatePrice: action,
       validateImages: action,
-      check: action,
+      isValide: action,
       getAllProducts: action,
       getCategoryes: action,
       checkAndSave: action,
@@ -95,6 +95,7 @@ class DashboardStore {
       deleteProduct: action,
       getUniquePropertiesForProductUpdate: action,
       deleteProductAndUpdate: action,
+      loading: action,
     });
   }
 
@@ -311,7 +312,7 @@ class DashboardStore {
     return isValid;
   }
 
-  check(): boolean {
+  isValide(): boolean {
     const isValideTitle = this.validateTitle();
     const isValidDescription = this.validateDescription();
     const isValidPrice = this.validatePrice();
@@ -321,7 +322,7 @@ class DashboardStore {
   }
 
   async checkAndSave(): Promise<void> {
-    const isValid = this.check();
+    const isValid = this.isValide();
     if (!isValid) return;
 
     if (this._modalType === modalType.create) {
@@ -335,6 +336,11 @@ class DashboardStore {
     }
   }
 
+  loading(): void {
+    this._meta = Meta.loading;
+    this._message = '';
+  }
+
   async createProduct(): Promise<void> {
     const url = endpoints.products.create();
     const data: ProductCreateApiReq = {
@@ -344,7 +350,7 @@ class DashboardStore {
       categoryId: Number(this._category[0].key),
       images: this._images,
     };
-    this._meta = Meta.loading;
+    this.loading();
 
     try {
       await axios({
@@ -369,7 +375,7 @@ class DashboardStore {
   async getAllProducts(): Promise<void> {
     const url = endpoints.products.get();
     this._products = [];
-    this._meta = Meta.loading;
+    this.loading();
 
     try {
       const res: AxiosResponse<ProductApi[]> = await axios({
@@ -379,7 +385,7 @@ class DashboardStore {
       
       runInAction(() => {
         this._products = normalizeProducts(res.data);
-        this._message = 'Данные успешно обновлены';
+        this._message = '';
         this._meta = Meta.success;
       });
     } catch(e) {
@@ -415,7 +421,7 @@ class DashboardStore {
     const url = endpoints.products.update(this._selectedProduct.id);
     const data: ProductUpdateApiReq = this.getUniquePropertiesForProductUpdate();
     if (!Object.keys(data)) return;
-    this._meta = Meta.loading;
+    this.loading();
 
     try {
       await axios({
@@ -439,7 +445,7 @@ class DashboardStore {
   async deleteProduct(): Promise<void> {
     if (this._selectedProduct === null) return;
     const url = endpoints.products.delete(this._selectedProduct.id);
-    this._meta = Meta.loading;
+    this.loading();
 
     try {
       await axios({
@@ -461,9 +467,9 @@ class DashboardStore {
 
   async deleteProductAndUpdate(): Promise<void> {
     await this.deleteProduct();
-    if (this._meta === Meta.success) {
-      await this.getAllProducts();
-    }
+    if (this.isError) return;
+    
+    await this.getAllProducts();
   }
 
 

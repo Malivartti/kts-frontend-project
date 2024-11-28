@@ -1,5 +1,5 @@
 import { useTheme } from '@app/providers/ThemeProvider';
-import { useBugStoreInit } from '@shared/stores/BugStore/useBugStoreInig';
+import { useBagStoreInit } from '@shared/stores/BagStore';
 import { useQueryParamsStoreInit } from '@shared/stores/QueryParamsStore';
 import { useUserStoreInit } from '@shared/stores/UserStore';
 import classNames from 'classnames';
@@ -17,7 +17,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
   const { theme } = useTheme();
   useQueryParamsStoreInit();
   useUserStoreInit();
-  useBugStoreInit();
+  useBagStoreInit();
 
   return (
     <div className={classNames('app', theme)}>

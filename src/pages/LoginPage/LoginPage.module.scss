@@ -6,10 +6,6 @@
   min-height: calc(100vh - var(--navbar-height) * 2 - 50px);
   padding: 50px 0;
 
-  &__toast {
-    top: var(--toast-top);
-  }
-
   &__form {
     display: flex;
     flex-direction: column;

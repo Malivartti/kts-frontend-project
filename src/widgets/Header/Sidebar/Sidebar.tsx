@@ -2,7 +2,7 @@ import { AppRouteUrls } from '@shared/configs/router';
 import rootStore from '@shared/stores/RootStore';
 import Button from '@shared/ui/Button';
 import Text from '@shared/ui/Text';
-import BugProductsList from '@widgets/BugProductsList';
+import BugProductsList from '@widgets/BagProductsList';
 import { observer } from 'mobx-react-lite';
 import { FC, useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,8 +47,8 @@ const Sidebar: FC<SidebarProps> = ({ isShow, setIsShow }) => {
     <div className={cls.Sidebar}>
       <div className={cls.Sidebar__container} ref={sidebarRef}>
         <Text className={cls.Sidebar__title} tag='h2' view='p-32'>{t('Покупки')}</Text>
-        <BugProductsList list={rootStore.bug.bug} totalSum={rootStore.bug.totalSum}/>
-        {!!rootStore.bug.bugCount && (
+        <BugProductsList list={rootStore.bag.bag} totalSum={rootStore.bag.totalSum}/>
+        {!!rootStore.bag.bagCount && (
           <Button className={cls.Sidebar__btn} onClick={toOrder}>
             {t('Купить')}
           </Button>

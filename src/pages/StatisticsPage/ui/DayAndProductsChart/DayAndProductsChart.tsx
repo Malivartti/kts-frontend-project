@@ -60,6 +60,7 @@ const DayAndProductsChart = () => {
                 }}
                 style={{
                   fontSize: 8,
+                  
                 }}
               />
             }

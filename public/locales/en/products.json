@@ -7,6 +7,7 @@
   "Всего продуктов": "Total Product",
   "Нет продуктов": "There are no products",
   "В корзину": "Add to Cart",
-  "": "",
-  "": ""
+  "Не удалось получить информацию о продуктах": "Failed to retrieve product information",
+  "Не удалось получить информацию о категориях": "Failed to retrieve category information",
+    "Успешный вход": "Successful login"
 }

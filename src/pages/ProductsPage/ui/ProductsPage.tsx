@@ -1,8 +1,9 @@
 
 import { useProductsStore } from '@shared/stores/ProductsStore';
-import rootStore from '@shared/stores/RootStore';
+import rootStore, { useTrackMetaAndToast } from '@shared/stores/RootStore';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 
 import Intro from './Intro';
@@ -13,6 +14,7 @@ import SearchAndFilter from './SearchAndFilter';
 
 const ProductsPage = () => {
   const productsStore = useProductsStore();
+  const { t } = useTranslation('products');
   const search = rootStore.query.search;
   const [ searchParams, setSearchParams] = useSearchParams();
 
@@ -27,6 +29,8 @@ const ProductsPage = () => {
         productsStore.getDataOfQueryParams();
       });
   }, [productsStore]);
+
+  useTrackMetaAndToast({ t, store: productsStore });
 
   return (
     <div className={cls.ProductsPage__container}>

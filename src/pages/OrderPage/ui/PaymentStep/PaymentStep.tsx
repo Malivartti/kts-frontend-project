@@ -21,10 +21,6 @@ const PaymentStep = () => {
   const prevStep = useCallback(() => {
     orderStore.prevStep();
   }, [orderStore]);
-
-  if (!orderStore.isPaymentStep) {
-    return;
-  }
   
   return (
     <div>

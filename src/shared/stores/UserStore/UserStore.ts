@@ -2,14 +2,14 @@ import { Meta } from '@entities/Meta';
 import { normalizationUser, UserApi, UserCheckEmailReqApi, UserCheckEmailResApi, UserCreateReqApi, UserLoginReqApi, UserLoginResApi, UserModel, UserUpdateReqApi } from '@entities/User';
 import { endpoints } from '@shared/configs/api';
 import axios, { AxiosResponse } from 'axios';
-import { action, computed, makeObservable, observable, runInAction } from 'mobx';
+import { action, computed, makeObservable, observable, reaction, runInAction } from 'mobx';
 
-type PrivateField = '_user' | '_meta' | '_error' | '_accessToken' | '_refreshToken' | '_isLogin';
+type PrivateField = '_user' | '_meta' | '_message' | '_accessToken' | '_refreshToken' | '_isLogin';
 
 class UserStore {
   private _user: UserModel | null = null;
   private _meta: Meta = Meta.initial;
-  private _error: string = '';
+  private _message: string = '';
   private _accessToken: string = '';
   private _refreshToken: string = '';
   private _isLogin: boolean | null = null;
@@ -18,7 +18,7 @@ class UserStore {
     makeObservable<UserStore, PrivateField>(this, {
       _user: observable,
       _meta: observable,
-      _error: observable,
+      _message: observable,
       _accessToken: observable,
       _refreshToken: observable,
       _isLogin: observable,
@@ -26,10 +26,11 @@ class UserStore {
       isSuccess: computed,
       isLoading: computed,
       isError: computed,
-      error: computed,
+      message: computed,
       accessToken: computed,
       refreshToken: computed,
       isLogin: computed,
+      setMessage: action,
       setAccessToken: action,
       setRefreshToken: action,
       getAccessToken: action,
@@ -39,8 +40,8 @@ class UserStore {
       logoutUser: action,
       setIsLogin: action,
       setUser: action,
-      resetError: action,
       updateUser: action,
+      loading: action,
     });
   }
 
@@ -60,8 +61,8 @@ class UserStore {
     return this._meta === Meta.error;
   }
 
-  get error(): string {
-    return this._error;
+  get message(): string {
+    return this._message;
   }
 
   get accessToken(): string {
@@ -76,9 +77,13 @@ class UserStore {
     return this._isLogin;
   }
 
-  resetError(): void {
-    this._error = '';
-    this._meta = Meta.initial;
+  loading(): void {
+    this._meta = Meta.loading;
+    this._message = '';
+  }
+
+  setMessage(message: string) {
+    this._message = message;
   }
 
   setAccessToken(token: string) {
@@ -103,6 +108,7 @@ class UserStore {
       email,
       password,
     };
+    this.loading();
 
     try {
       const res: AxiosResponse<UserLoginResApi> = await axios({
@@ -114,10 +120,11 @@ class UserStore {
       runInAction(() => {
         this._accessToken = res.data.access_token;
         this._refreshToken = res.data.refresh_token;
+        this._meta = Meta.success;
       });
     } catch (e) {
       runInAction(() => {
-        this._error = 'Не удалось войти';
+        this._message = 'Не удалось получить токен';
         this._meta = Meta.error;
       });
       console.log(e);
@@ -129,6 +136,7 @@ class UserStore {
     const data = {
       refreshToken: this._refreshToken,
     };
+    this.loading();
 
     try {
       const res: AxiosResponse<UserLoginResApi> = await axios({
@@ -140,8 +148,13 @@ class UserStore {
       runInAction(() => {
         this._accessToken = res.data.access_token;
         this._refreshToken = res.data.refresh_token;
+        this._meta = Meta.success;
       });
     } catch (e) {
+      runInAction(() => {
+        this._message = 'Не удалось обновить токен';
+        this._meta = Meta.error;
+      });
       console.log(e);
     }
   }
@@ -151,6 +164,7 @@ class UserStore {
     const headers = {
       'Authorization': `Bearer ${this._accessToken}`,
     };
+    this.loading();
 
     try {
       const res: AxiosResponse<UserApi> = await axios({
@@ -160,13 +174,14 @@ class UserStore {
       });
       runInAction(() => {
         this._user = normalizationUser(res.data);
-        this._meta = Meta.success;
         this._isLogin = true;
+        this._message = 'Успешный вход';
+        this._meta = Meta.success;
       });
 
     } catch(e) {
       runInAction(() => {
-        this._error = 'Не удалось получить данные пользователя';
+        this._message = 'Не удалось получить данные пользователя';
         this._meta = Meta.error;
       });
       console.log(e);
@@ -174,11 +189,10 @@ class UserStore {
   }
 
   async loginUser(email: string, password: string) {
-    this._meta = Meta.loading;
     await this.getAccessToken(email, password);
-    if (!this.isError) {
-      await this.getUser();
-    }
+    if (this.isError) return;
+    await this.getUser();
+    if (this.isError) return;
   }
 
   async checkEmail(email: string): Promise<boolean> {
@@ -186,6 +200,7 @@ class UserStore {
     const data: UserCheckEmailReqApi = {
       email,
     };
+    this.loading();
 
     try {
       const res: AxiosResponse<UserCheckEmailResApi> = await axios({
@@ -197,7 +212,7 @@ class UserStore {
       return res.data.isAvailable;
     } catch (e) {
       runInAction(() => {
-        this._error = 'Не удалось проверить почту';
+        this._message = 'Не удалось проверить почту';
         this._meta = Meta.error;
       });
       console.log(e);
@@ -212,6 +227,7 @@ class UserStore {
       email,
       password,
     };
+    this.loading();
 
     try {
       const res: AxiosResponse<UserApi> = await axios({
@@ -222,11 +238,12 @@ class UserStore {
 
       runInAction(() => {
         this._user = normalizationUser(res.data);
+        this._message = 'Пользователь успешно зарегистрирован';
         this._meta = Meta.success;
       });
     } catch (e) {
       runInAction(() => {
-        this._error = 'Не удалось зарегистрироваться';
+        this._message = 'Не удалось зарегистрироваться';
         this._meta = Meta.error;
       });
       console.log(e);
@@ -236,18 +253,16 @@ class UserStore {
   logoutUser(): void {
     this._user = null;
     this._meta = Meta.initial;
-    this._error = '';
+    this._message = '';
     this._accessToken = '';
     this._refreshToken = '';
     this._isLogin = false;
   }
 
   async registerUser(avatar: string, name: string, email: string, password: string): Promise<void> {
-    // const emailIsAvailable = await this.checkEmail(email);
     await this.createUser(avatar, name, email, password);
-    if (!this.isError) {
-      await this.loginUser(email, password);
-    }
+    if (this.isError) return;
+    await this.loginUser(email, password);
   }
 
   async updateUser(newName: string): Promise<void> {
@@ -256,6 +271,7 @@ class UserStore {
       email: this._user.email,
       name: newName,
     };
+    this.loading();
 
     try {
       const res: AxiosResponse<UserApi> = await axios({
@@ -265,11 +281,12 @@ class UserStore {
       });
       runInAction(() => {
         this._user = normalizationUser(res.data);
+        this._message = 'Данные пользователя успешно изменены';
         this._meta = Meta.success;
       });
     } catch(e) {
       runInAction(() => {
-        this._error = 'Не удалось изменить данные пользователя';
+        this._message = 'Не удалось изменить данные пользователя';
         this._meta = Meta.error;
       });
       console.log(e);

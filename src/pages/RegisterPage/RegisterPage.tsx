@@ -1,22 +1,24 @@
 import { AppRouteUrls } from '@shared/configs/router';
 import RegisterStore from '@shared/stores/RegisterStore';
-import rootStore from '@shared/stores/RootStore';
+import rootStore, { useTrackMetaAndToast } from '@shared/stores/RootStore';
 import Button, { ButtonTheme } from '@shared/ui/Button';
 import Input from '@shared/ui/Input';
 import Text from '@shared/ui/Text';
-import { reaction } from 'mobx';
 import { observer, useLocalObservable } from 'mobx-react-lite';
-import { FormEvent, useCallback, useEffect } from 'react';
+import { FormEvent, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 import cls from './RegisterPage.module.scss';
 
 const RegisterPage = () => {
   const registerStore = useLocalObservable(() => new RegisterStore());
-  const { t } = useTranslation();
+  const { t } = useTranslation('register');
   const navigate = useNavigate();
+
+  const onSuccess = useCallback(() => {
+    navigate(AppRouteUrls.root);
+  }, [navigate]);
 
   const onSubmit = useCallback((e: FormEvent) => {
     e.preventDefault();
@@ -27,33 +29,7 @@ const RegisterPage = () => {
     navigate(AppRouteUrls.login.create());
   }, [navigate]);
 
-
-  useEffect(() => {
-    const reactionDisposer = reaction(
-      () => ({ isError: rootStore.user.isError, isSuccess: rootStore.user.isSuccess }),
-      ({ isError, isSuccess }) => {
-        if (isError) {
-          toast(t(rootStore.user.error), {
-            position: 'top-center',
-            type: 'error',
-            className: cls.RegisterPage__toast,
-          });
-        }
-        if (isSuccess) {
-          navigate(AppRouteUrls.root);
-          toast(t('Успешная регистрация'), {
-            position: 'top-center',
-            type: 'success',
-            className: cls.RegisterPage__toast,
-          });
-        }
-      }
-    );
-
-    return () => {
-      reactionDisposer();
-    };
-  }, [navigate, t]);
+  useTrackMetaAndToast({ t, store: rootStore.user, onSuccess });
 
   return (
     <div className={cls.RegisterPage}>
@@ -75,7 +51,7 @@ const RegisterPage = () => {
           value={registerStore.avatar} 
           onChange={registerStore.setAvatar}
           error={registerStore.avatarError ? t(registerStore.avatarError) : ''}
-          placeholder={t('Фото')}
+          placeholder={t('Ссылка на изображение')}
         />
         <Input 
           className={cls.RegisterPage__input}
@@ -115,7 +91,7 @@ const RegisterPage = () => {
           onClick={toLogin}
           type='button'
         >
-          {t('Зарегистрироваться')}
+          {t('Войти')}
         </Button>
         <Button 
           className={cls.RegisterPage__btn}

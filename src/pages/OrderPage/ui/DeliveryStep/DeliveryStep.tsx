@@ -1,9 +1,7 @@
 import { useOrderStore } from '@shared/stores/OrderStore';
-import rootStore from '@shared/stores/RootStore';
 import Button from '@shared/ui/Button';
 import Input from '@shared/ui/Input';
 import Text from '@shared/ui/Text';
-import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { FormEvent, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,22 +20,6 @@ const DeliveryStep = () => {
   const prevStep = useCallback(() => {
     orderStore.prevStep();
   }, [orderStore]);
-
-  reaction(
-    () => orderStore.isDeliveryStep,
-    isDelivery => {
-      if (isDelivery && rootStore.user.user !== null && !orderStore.deliveryStepModel.name && !orderStore.deliveryStepModel.email) {
-        orderStore.deliveryStepModel.setName(rootStore.user.user.name);
-        orderStore.deliveryStepModel.setEmail(rootStore.user.user.email);
-      }
-    }
-  );
-
-
-
-  if (!orderStore.isDeliveryStep) {
-    return;
-  }
 
   return (
     <div>

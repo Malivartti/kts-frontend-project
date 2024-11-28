@@ -6,6 +6,6 @@
   "Изменить": "Change",
   "Введите новое имя": "Enter new name",
   "Сохранить": "Save",
-  "Сохранено успешно": "Save successfully",
+  "Данные пользователя успешно изменены": "User data successfully changed",
   "Не удалось изменить данные пользователя": "Failed to change user data"
 }

@@ -1,15 +1,13 @@
-import BugIcon from '@shared/ui/icons/BugIcon';
-import classNames from 'classnames';
+import BagIcon from '@shared/ui/icons/BagIcon';
 import { FC, MouseEvent, useCallback, useState } from 'react';
 
 import Sidebar from '../Sidebar';
-import cls from './Bug.module.scss';
 
-type BugProps = {
+type BagProps = {
   className?: string
 }
 
-const Bug: FC<BugProps> = ({ className }) => {
+const Bag: FC<BagProps> = ({ className }) => {
   const [isShow, setIsShow] = useState<boolean>(false);
 
   const onClick = useCallback((e: MouseEvent<HTMLElement>) => {
@@ -18,13 +16,13 @@ const Bug: FC<BugProps> = ({ className }) => {
   }, []);
 
   return (
-    <div className={classNames(cls.Bug, className)}>
+    <div className={className}>
       <button type='button' onClick={onClick}>
-        <BugIcon className={cls.Bug__icon} />
+        <BagIcon />
       </button>
       <Sidebar isShow={isShow} setIsShow={setIsShow} />
     </div>
   );
 };
 
-export default Bug;
+export default Bag;

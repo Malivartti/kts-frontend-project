@@ -1,36 +1,21 @@
 import { useDashboardStore } from '@shared/stores/DashboardStore';
-import Toast from '@shared/ui/Toast';
-import { reaction } from 'mobx';
+import { useTrackMetaAndToast } from '@shared/stores/RootStore';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import ProductModal from './ProductModal';
 import ProductsTable from './ProductsTable';
 
 const DashboardPage = () => {
   const dashboardStore = useDashboardStore();
+  const { t } = useTranslation('dashboard');
 
   useEffect(() => {
     dashboardStore.getAllProducts();
     dashboardStore.getCategoryes();
   }, [dashboardStore]);
 
-  useEffect(() => {
-    const reactionDisposer = reaction(
-      () => ({ isError: dashboardStore.isError, isSuccess: dashboardStore.isSuccess }),
-      ({ isError, isSuccess }) => {
-        if (isError) {
-          Toast(dashboardStore.message, 'error');
-        }
-        if (isSuccess) {
-          Toast(dashboardStore.message, 'success');
-        }
-      }
-    );
-
-    return () => {
-      reactionDisposer();
-    };
-  }, []);
+  useTrackMetaAndToast({ t, store: dashboardStore });
 
   return (
     <div>

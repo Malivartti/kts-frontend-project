@@ -1,21 +1,19 @@
 import { AppRouteUrls } from '@shared/configs/router';
 import LoginStore from '@shared/stores/LoginStore';
-import rootStore from '@shared/stores/RootStore';
+import rootStore, { useTrackMetaAndToast } from '@shared/stores/RootStore';
 import Button, { ButtonTheme } from '@shared/ui/Button';
 import Input from '@shared/ui/Input';
 import Text from '@shared/ui/Text';
-import { reaction } from 'mobx';
 import { observer, useLocalObservable } from 'mobx-react-lite';
-import { FormEvent, useCallback, useEffect } from 'react';
+import { FormEvent, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 import cls from './LoginPage.module.scss';
 
 const LoginPage = () => {
   const loginStore = useLocalObservable(() => new LoginStore());
-  const { t } = useTranslation();
+  const { t } = useTranslation('login');
   const navigate = useNavigate();
 
   const onSubmit = useCallback((e: FormEvent) => {
@@ -27,32 +25,11 @@ const LoginPage = () => {
     navigate(AppRouteUrls.register.create());
   }, [navigate]);
 
-  useEffect(() => {
-    const reactionDisposer = reaction(
-      () => ({ isError: rootStore.user.isError, isSuccess: rootStore.user.isSuccess }),
-      ({ isError, isSuccess }) => {
-        if (isError) {
-          toast(t(rootStore.user.error), {
-            position: 'top-center',
-            type: 'error',
-            className: cls.LoginPage__toast,
-          });
-        }
-        if (isSuccess) {
-          navigate(AppRouteUrls.root);
-          toast(t('Успешный вход'), {
-            position: 'top-center',
-            type: 'success',
-            className: cls.LoginPage__toast,
-          });
-        }
-      }
-    );
+  const onSuccess = useCallback(() => {
+    navigate(AppRouteUrls.root);
+  }, [navigate]);
 
-    return () => {
-      reactionDisposer();
-    };
-  }, [navigate, t]);
+  useTrackMetaAndToast({ t, store: rootStore.user, onSuccess });
 
   return (
     <div className={cls.LoginPage}>

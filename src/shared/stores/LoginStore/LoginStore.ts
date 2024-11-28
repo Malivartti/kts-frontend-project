@@ -25,6 +25,7 @@ class LoginStore {
       setPassword: action.bound,
       validateEmail: action,
       validatePassword: action,
+      isValid: action,
       login: action,
     });
   }
@@ -46,9 +47,6 @@ class LoginStore {
   }
 
   setEmail(email: string): void {
-    if (rootStore.user.isError) {
-      rootStore.user.resetError();
-    }
     if (this._emailError) {
       this._emailError = '';
     }
@@ -56,9 +54,6 @@ class LoginStore {
   }
 
   setPassword(password: string): void {
-    if (rootStore.user.isError) {
-      rootStore.user.resetError();
-    }
     if (this._passwordError) {
       this._passwordError = '';
     }
@@ -93,12 +88,18 @@ class LoginStore {
     return true;
   }
 
-  async login(): Promise<void> {
+  isValid(): boolean {
     const isEmailValid = this.validateEmail();
     const isPasswordValid = this.validatePassword();
-    if (isEmailValid && isPasswordValid) {
-      await rootStore.user.loginUser(this._email, this._password);
-    }
+
+    return isEmailValid && isPasswordValid;
+  } 
+
+  async login(): Promise<void> {
+    const isValid = this.isValid();
+    if (!isValid) return;
+
+    await rootStore.user.loginUser(this._email, this._password);
   }
 }
 

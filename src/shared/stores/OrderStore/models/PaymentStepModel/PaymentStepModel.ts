@@ -35,7 +35,8 @@ class PaymentStepModel {
       setCvc: action.bound,
       validateNumber: action,
       validateExpiry: action,
-      validateCvc: action,
+      validateCVC: action,
+      isValid: action,
       checkStep: action,
     });
   }
@@ -109,7 +110,7 @@ class PaymentStepModel {
     return true;
   }
 
-  validateCvc(): boolean {
+  validateCVC(): boolean {
     if (!this._cvc.trim()) {
       this._cvcError = 'Введите CVC';
       return;
@@ -121,14 +122,19 @@ class PaymentStepModel {
     return true;
   }
 
-  checkStep(): void {
+  isValid(): boolean {
     const isValidNumber = this.validateNumber();
     const isValidExpiry = this.validateExpiry();
-    const isValidCvc = this.validateCvc();
+    const isValidCVC = this.validateCVC();
 
-    if (isValidNumber && isValidExpiry && isValidCvc) {
-      this._orderStore.nextStep();
-    }
+    return isValidNumber && isValidExpiry && isValidCVC;
+  }
+
+  checkStep(): void {
+    const isValid = this.isValid();
+    if (!isValid) return; 
+
+    this._orderStore.nextStep();
   }
 }
 

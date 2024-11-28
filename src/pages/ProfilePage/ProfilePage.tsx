@@ -1,16 +1,13 @@
 import ProfileStore from '@shared/stores/ProfileStore';
-import rootStore from '@shared/stores/RootStore';
+import rootStore, { useTrackMetaAndToast } from '@shared/stores/RootStore';
 import Button from '@shared/ui/Button';
 import Text from '@shared/ui/Text';
-import { reaction } from 'mobx';
 import { observer, useLocalObservable } from 'mobx-react-lite';
-import { MouseEvent, useCallback, useEffect, useState } from 'react';
+import { MouseEvent, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 
 import cls from './ProfilePage.module.scss';
 import ProfileModal from './ui/ProfileModal';
-
 
 const ProfilePage = () => {
   const profileStore = useLocalObservable(() => new ProfileStore());
@@ -22,30 +19,7 @@ const ProfilePage = () => {
     setIsSnow(true);
   }, []);
 
-  useEffect(() => {
-    const reactionDisposer = reaction(
-      () => ({ isError: rootStore.user.isError, isSuccess: rootStore.user.isSuccess }),
-      ({ isError, isSuccess }) => {
-        if (isError) {
-          toast(t(rootStore.user.error), {
-            position: 'top-center',
-            type: 'error',
-            className: cls.ProfilePage__toast,
-          });
-        }
-        if (isSuccess) {
-          toast(t('Сохранено успешно'), {
-            position: 'top-center',
-            type: 'success',
-            className: cls.ProfilePage__toast,
-          });
-        }
-      }
-    );
-    return () => {
-      reactionDisposer();
-    };
-  }, [t]);
+  useTrackMetaAndToast({ t, store: rootStore.user });
   
   return (
     <div className={cls.ProfilePage}>

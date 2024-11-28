@@ -1,4 +1,4 @@
-import { BugProductModel } from '@entities/BugProduct';
+import { BagProductModel } from '@entities/BagProduct';
 import { Meta } from '@entities/Meta';
 import { endpoints } from '@shared/configs/api';
 import rootStore from '@shared/stores/RootStore';
@@ -11,8 +11,8 @@ type PrivateField = '_order' | '_unavailableProducts';
 
 class OrderStepModel {
   private _orderStore: OrderStore;
-  private _order: BugProductModel[] = [];
-  private _unavailableProducts: BugProductModel[] = [];
+  private _order: BagProductModel[] = [];
+  private _unavailableProducts: BagProductModel[] = [];
 
   constructor(orderStore: OrderStore) {
     this._orderStore = orderStore;
@@ -27,11 +27,11 @@ class OrderStepModel {
     });
   }
 
-  get order(): BugProductModel[] {
+  get order(): BagProductModel[] {
     return this._order;
   }
 
-  get unavailableProducts(): BugProductModel[] {
+  get unavailableProducts(): BagProductModel[] {
     return this._unavailableProducts;
   }
 
@@ -41,11 +41,11 @@ class OrderStepModel {
 
   checkStep(): void {
     this._orderStore.setMeta(Meta.loading);
-    this._orderStore.setError('');
+    this._orderStore.setMessage('');
     this._unavailableProducts = [];
     this._order = [];
 
-    const promises = toJS(rootStore.bug.bug).map(async (product) => {
+    const promises = toJS(rootStore.bag.bag).map(async (product) => {
       const url = endpoints.product.getProduct(product.id);
       try {
         await axios({
@@ -67,7 +67,7 @@ class OrderStepModel {
 
     Promise.allSettled(promises)
       .then((res) => {
-        const unavailableProducts: BugProductModel[] = [];
+        const unavailableProducts: BagProductModel[] = [];
 
         res.forEach(item => {
           if (item.status === 'fulfilled' && !item.value.isOk) {
@@ -79,13 +79,13 @@ class OrderStepModel {
         if (unavailableProducts.length) {
           runInAction(() => {
             this._unavailableProducts = unavailableProducts;
-            this._orderStore.setError('Некоторые продукты не доступны');
+            this._orderStore.setMessage('Некоторые продукты не доступны');
             this._orderStore.setMeta(Meta.error);
 
           });
         } else {
           runInAction(() => {
-            this._order = rootStore.bug.bug;
+            this._order = rootStore.bag.bag;
             this._orderStore.setMeta(Meta.success);
           });
           this._orderStore.nextStep();

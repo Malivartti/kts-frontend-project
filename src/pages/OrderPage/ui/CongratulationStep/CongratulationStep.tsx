@@ -1,6 +1,6 @@
 import { useOrderStore } from '@shared/stores/OrderStore';
 import Text from '@shared/ui/Text';
-import BugProductsList from '@widgets/BugProductsList';
+import BugProductsList from '@widgets/BagProductsList';
 import { observer } from 'mobx-react-lite';
 import { useTranslation } from 'react-i18next';
 
@@ -9,10 +9,6 @@ import cls from './CongratulationStep.module.scss';
 const CongratulationStep = () => {
   const { t } = useTranslation('order');
   const orderStore = useOrderStore();
-
-  if (!orderStore.isCongratulationStep) {
-    return;
-  }
 
   return (
     <div>

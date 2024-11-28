@@ -1,9 +1,8 @@
 import { AppRouteUrls } from '@shared/configs/router';
 import ProductStore from '@shared/stores/ProductStore';
-import rootStore from '@shared/stores/RootStore';
+import rootStore, { useTrackMetaAndToast } from '@shared/stores/RootStore';
 import Button, { ButtonTheme } from '@shared/ui/Button';
 import Text from '@shared/ui/Text';
-import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { FC, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,27 +20,20 @@ const Product: FC<ProductProps> = ({ productStore }) => {
   const navigate = useNavigate();
   const { t } = useTranslation('product');
 
-  reaction(
-    () => productStore.isError,
-    (isError) => {
-      if (isError) {
-        navigate(AppRouteUrls.products.create());
-      }
-    }
-  );
-
-  const toBug = useCallback(() => {
-    rootStore.bug.addToBug(product);
+  const toBag = useCallback(() => {
+    rootStore.bag.addToBag(product);
   }, [product]);
 
   const toOrder = useCallback(() => {
-    rootStore.bug.addToBug(product);
+    rootStore.bag.addToBag(product);
     navigate(AppRouteUrls.order.create());
   }, [navigate, product]);
 
-  if (productStore.isError) {
-    return null;
-  }
+  const onError = useCallback(() => {
+    navigate(AppRouteUrls.products.create());
+  }, [navigate]);
+
+  useTrackMetaAndToast({ t, store: productStore, onError });
 
   return (
     <div className={cls.Product}>
@@ -59,7 +51,7 @@ const Product: FC<ProductProps> = ({ productStore }) => {
           <Button
             theme={ButtonTheme.OUTLINE}
             className={cls.Product__button}
-            onClick={toBug}
+            onClick={toBag}
           >
             {t('В корзину')}
           </Button>

@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import Icon, { IconProps } from '../Icon';
 
-const BugIcon: FC<IconProps> = ({
+const BagIcon: FC<IconProps> = ({
   width=30,
   height=30,
   ...props
@@ -22,4 +22,4 @@ const BugIcon: FC<IconProps> = ({
   );
 };
 
-export default BugIcon;
+export default BagIcon;

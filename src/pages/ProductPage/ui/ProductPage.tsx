@@ -8,11 +8,10 @@ import PageSkeleton from './PageSkeleton';
 import Product from './Product';
 import cls from './ProductPage.module.scss';
 
-
 const ProductPage = () => {
   const productStore = useLocalObservable(() => new ProductStore());
-  const { id: productId } = useParams();
   const component = productStore.isLoading ? <PageSkeleton /> : <Product productStore={productStore} />;
+  const { id: productId } = useParams();
 
   useEffect(() => {
     productStore.getProduct(productId);
