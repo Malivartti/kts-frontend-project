@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FC, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import cls from './Popup.module.scss';
 
@@ -14,20 +14,36 @@ const Popup: FC<PopupProps> = ({ className, button, children }) => {
   const popupRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (listRef.current) {
-      const { x, width } = listRef.current.getBoundingClientRect();
-
-      if (x + width > window.innerWidth) {
-        listRef.current.style.left = '0px';
-        listRef.current.style.right = '15px';
-      }
-
-      if (x < 15) {
-        listRef.current.style.left = '15px';
-      }
-    }
-  });
+  useLayoutEffect(() => {
+    const handleResize = () => {
+      requestAnimationFrame(() => {
+        if (listRef.current) {
+          const { x, width } = listRef.current.getBoundingClientRect();
+          const viewportWidth = window.innerWidth;
+  
+          let newLeft = null;
+  
+          if (x + width > viewportWidth) {
+            newLeft = '0px';
+          } else if (x < 15) {
+            newLeft = '15px';
+          }
+  
+          if (newLeft !== null) {
+            listRef.current.style.left = newLeft;
+            listRef.current.style.right = newLeft === '0px' ? '15px' : '';
+          }
+        }
+      });
+    };
+  
+    handleResize();
+    window.addEventListener('resize', handleResize);
+  
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const toggle = useCallback(() => {
     setIsShow(prev => !prev);

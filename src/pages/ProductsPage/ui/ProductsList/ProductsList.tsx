@@ -9,7 +9,7 @@ import Loader from '@shared/ui/Loader';
 import Text from '@shared/ui/Text';
 import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { FC, MouseEvent, useCallback, useEffect, useRef } from 'react';
+import { FC, MouseEvent, useCallback, useLayoutEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ const ProductsList: FC<ProductsListProps> = ({ className }) => {
     rootStore.bag.addToBag(product);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const reactionDisposer = reaction(
       () => ({
         currentPage: productsStore.paginationModel.currentPage,
