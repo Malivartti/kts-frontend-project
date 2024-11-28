@@ -6,8 +6,8 @@ import { observer, useLocalObservable } from 'mobx-react-lite';
 import { MouseEvent, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import ProfileModal from './ProfileModal';
 import cls from './ProfilePage.module.scss';
-import ProfileModal from './ui/ProfileModal';
 
 const ProfilePage = () => {
   const profileStore = useLocalObservable(() => new ProfileStore());
