@@ -41,6 +41,7 @@ const DeliveryStep = () => {
           value={orderStore.deliveryStepModel.phone} 
           onChange={orderStore.deliveryStepModel.setPhone}
           error={orderStore.deliveryStepModel.phoneError ? t(orderStore.deliveryStepModel.phoneError) : ''}
+          maxLength={11}
           placeholder={t('Номер телефона')}
         />
         <Input

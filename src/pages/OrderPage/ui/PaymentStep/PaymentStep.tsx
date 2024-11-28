@@ -35,6 +35,7 @@ const PaymentStep = () => {
           value={orderStore.paymentStepModel.number} 
           onChange={orderStore.paymentStepModel.setNumber}
           error={orderStore.paymentStepModel.numberError ? t(orderStore.paymentStepModel.numberError) : ''}
+          maxLength={16}
           placeholder={t('Номер карты')}
         />
         <div className={cls.PaymentStep__row}>
@@ -44,6 +45,7 @@ const PaymentStep = () => {
             value={orderStore.paymentStepModel.expiry} 
             onChange={orderStore.paymentStepModel.setExpiry}
             error={orderStore.paymentStepModel.expiryError ? t(orderStore.paymentStepModel.expiryError) : ''}
+            maxLength={5}
             placeholder={t('Срок действия карты')}
           />
           <Input
@@ -52,6 +54,7 @@ const PaymentStep = () => {
             value={orderStore.paymentStepModel.cvc} 
             onChange={orderStore.paymentStepModel.setCvc}
             error={orderStore.paymentStepModel.cvcError ? t(orderStore.paymentStepModel.cvcError) : ''}
+            maxLength={3}
             placeholder='CVC'
           />
         </div>

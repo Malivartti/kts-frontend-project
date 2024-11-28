@@ -13,6 +13,7 @@ export type InputProps = Omit<
   afterSlot?: React.ReactNode;
   className?: string;
   error?: string;
+  maxLength?: number;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -21,18 +22,17 @@ const Input: React.FC<InputProps> = ({
   value,
   onChange,
   error,
+  maxLength,
   ...props
 }) => {
-  const [innerValue, setInnerValue ] = React.useState<string>();
+  const [innerValue, setInnerValue ] = React.useState<string>(value);
 
   const onChangeValue = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInnerValue(e.target.value);
-    onChange(e.target.value);
-  }, [onChange]);
-
-  useEffect(() => {
-    setInnerValue(value);
-  }, [value]);
+    if (!maxLength || (e.target.value.length <= maxLength)) {
+      setInnerValue(e.target.value);
+      onChange(e.target.value);
+    }
+  }, [innerValue, maxLength, onChange]);
 
   return (
     <div className={classNames(cls.Input__wrapper, className)}>
