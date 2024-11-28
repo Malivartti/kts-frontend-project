@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import RootLayout from '@widgets/RootLayout';
 import { CookiesProvider } from 'react-cookie';
 import { SkeletonTheme } from 'react-loading-skeleton';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import AppRouter from './providers/AppRouter';
 import ErrorBoundary from './providers/ErrorBoundary';
@@ -15,7 +15,7 @@ import ThemeProvider from './providers/ThemeProvider';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ErrorBoundary>
         <CookiesProvider>
           <ThemeProvider>
@@ -30,7 +30,7 @@ function App() {
           </ThemeProvider>
         </CookiesProvider>
       </ErrorBoundary>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
