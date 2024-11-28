@@ -2,7 +2,7 @@
   "name": "kts-frontend-project",
   "private": false,
   "version": "0.0.0",
-  "homepage": "https://malivartti.github.io//kts-frontend-project",
+  "homepage": "https://malivartti.github.io/kts-frontend-project",
   "scripts": {
     "dev": "webpack serve --env port=3000",
     "build:prod": "webpack --env mode=production",
