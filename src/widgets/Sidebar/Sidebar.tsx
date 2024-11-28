@@ -47,7 +47,7 @@ const Sidebar= () => {
         cls.Sidebar__container,
         { [ cls.Sidebar__container_hide]: !rootStore.bag.isShowSidebar }
       )} ref={sidebarRef}>
-        <Text className={cls.Sidebar__title} tag='h2' view='p-32'>{t('Покупки')}</Text>
+        <Text className={cls.Sidebar__title} tag='h2' view='p-32'>{t('Корзина')}</Text>
         <BugProductsList list={rootStore.bag.bag} totalSum={rootStore.bag.totalSum}/>
         {!!rootStore.bag.bagCount && (
           <Button className={cls.Sidebar__btn} onClick={toOrder}>
