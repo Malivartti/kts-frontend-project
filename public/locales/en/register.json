@@ -15,5 +15,6 @@
   "Неверный формат": "Invalid format",
   "Пароль должен иметь минимум 4 символа": "Password must be at least 4 characters long",
   "Пароль должен состоять только из латинских букв и цифр": "The password must consist only of Latin letters and numbers",
-  "Пароли не совпадают": "The passwords do not match"
+  "Пароли не совпадают": "The passwords do not match",
+  "Успешный вход": "Successful login"
 }
