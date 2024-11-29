@@ -7,6 +7,7 @@ export interface BuildPaths {
   src: string
   locales: string
   buildLocales: string
+  publicPath: string
 }
 
 export interface BuildOptions {
@@ -19,4 +20,5 @@ export interface BuildOptions {
 export interface BuildEnv {
   mode: BuildMode;
   port: number
+  publicPath: string
 }

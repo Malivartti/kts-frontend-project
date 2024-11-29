@@ -18,6 +18,7 @@ export function buildPlugins({ paths, isDev }: BuildOptions): webpack.WebpackPlu
     }),
     new webpack.DefinePlugin({
       __IS_DEV__: JSON.stringify(isDev),
+      __PUBLIC_PATH__: JSON.stringify(paths.publicPath),
     }),
     new CopyPlugin({
       patterns: [

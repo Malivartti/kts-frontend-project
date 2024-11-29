@@ -34,6 +34,10 @@ const Input: React.FC<InputProps> = ({
     }
   }, [innerValue, maxLength, onChange]);
 
+  useEffect(() => {
+    setInnerValue(value);
+  }, [value]);
+
   return (
     <div className={classNames(cls.Input__wrapper, className)}>
       <input
