@@ -1,3 +1,4 @@
+import CopyPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlagin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import webpack from 'webpack';
@@ -17,6 +18,11 @@ export function buildPlugins({ paths, isDev }: BuildOptions): webpack.WebpackPlu
     }),
     new webpack.DefinePlugin({
       __IS_DEV__: JSON.stringify(isDev),
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: paths.locales, to: paths.buildLocales }
+      ],
     })
   ];
 
