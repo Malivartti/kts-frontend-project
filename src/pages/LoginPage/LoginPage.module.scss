@@ -4,7 +4,8 @@
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 50px);
-  padding: 50px 0;
+  padding-top: var(--page-padding-top);
+  padding-bottom: var(--page-padding-bottom);
 
   &__form {
     display: flex;
